@@ -1,5 +1,6 @@
 #pragma once
-#include <corecrt_math.h>
+#include <cmath>
+
 struct Vector3 {
 	float x, y, z;
 
