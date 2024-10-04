@@ -19,3 +19,7 @@ void Scene::Update()
 	// destroy objects
 	// for renderers, render
 }
+
+void Scene::AddGameObject(gameobject* go)
+{
+}

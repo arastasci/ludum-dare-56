@@ -9,5 +9,6 @@ public:
 	gameobject* GameObject;
 protected:
 	void Destroy() override;
+	void DestroyImmediate() override;
 };
 

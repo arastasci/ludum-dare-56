@@ -19,3 +19,11 @@ void object::Destroy(object* o)
 {
 	o->setWillBeDestroyed();
 }
+
+void object::Destroy()
+{
+}
+
+void object::DestroyImmediate()
+{
+}

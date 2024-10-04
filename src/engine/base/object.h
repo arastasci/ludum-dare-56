@@ -5,6 +5,9 @@ public:
 	object();
 	const char* name;
 	static void Destroy(object* o);
+	virtual void Destroy();
+	virtual void DestroyImmediate();
+
 	bool GetWillBeDestroyed() const;
 protected:
 

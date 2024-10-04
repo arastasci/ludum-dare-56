@@ -1,5 +1,6 @@
 #include "gameobject.h"
 #include "Game.h"
+#include "transform.h"
 
 gameobject::gameobject()
 {
@@ -11,7 +12,6 @@ gameobject::gameobject(transform& t)
 {
 	Game::ActiveScene->AddGameObject(this);
 	Transform = new transform(t);
-
 }
 
 void gameobject::DestroyImmediate()
@@ -43,4 +43,12 @@ void gameobject::RemoveComponent(const char* name)
 			return;
 		}
 	}
+}
+
+void gameobject::Update()
+{
+}
+
+void gameobject::Destroy()
+{
 }

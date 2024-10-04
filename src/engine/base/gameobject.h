@@ -1,8 +1,10 @@
 #pragma once
 #include "object.h"
-#include "component.h"
-#include "transform.h"
-#include "Scene.h"
+
+class Scene;
+class component;
+class transform;
+
 class gameobject : public object
 {
 public:
@@ -18,7 +20,7 @@ public:
 	transform* Transform;
 	Scene* Scene;
 	void Destroy();
-	void DestroyImmediate() override;
+	void DestroyImmediate() ;
 protected:
 private:
 	std::vector<component*> m_components;
