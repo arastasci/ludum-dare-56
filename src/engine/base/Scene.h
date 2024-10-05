@@ -1,6 +1,7 @@
 #pragma once
-#include "gameobject.h"
 #include "../physics/collider.h"
+
+class GameObject;
 
 #define GAMEOBJECT_COUNT 256
 #define COLLIDER_COUNT 256
