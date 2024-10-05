@@ -35,6 +35,8 @@ void Renderer::initBuffer(RenderInfo &info, transform& t){
     //glBufferData(GL_ARRAY_BUFFER, data->texCoords.size() * sizeof(float), data->texCoords.data(), GL_STATIC_DRAW);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(1);
+
+    info.hasBuffer = true;
 };
 
 void Renderer::Render(RenderInfo &info, transform& t){
