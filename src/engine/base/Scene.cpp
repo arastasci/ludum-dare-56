@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "../render/Renderer.h"
 #include "renderproperties.h"
+#include "gameobject.h"
 #include <iostream>
 #include "../physics/screen_raycast_handler.h"
 Scene::Scene()
