@@ -7,7 +7,10 @@
 Renderer::Renderer(){
     m_shader = new Shader("src/engine/render/shader/vshader.glsl", "src/engine/render/shader/fshader.glsl");
     m_shader->use();
-    m_shader->setMat4("projection", glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f));
+    auto aspect = 600.f / 400.f;
+    //m_shader->setMat4("projection", glm::ortho(-aspect, aspect, -1.0f, 1.0f, 0.1f, 100.f));
+    m_shader->setMat4("projection", glm::ortho(0.f, 600.f, 0.f, 400.f, 0.1f, 100.f));
+    //m_shader->setMat4("projection", glm::perspective(glm::radians(45.0f), 600.0f / 400.0f, 0.1f, 100.0f));
     m_shader->setMat4("view", glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
     m_shader->setMat4("model", glm::mat4(1.0f));
 
