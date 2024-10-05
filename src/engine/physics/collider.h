@@ -9,7 +9,7 @@ public:
 	Collider();
 	Collider(Vector3 boundingBoxCenter);
 	~Collider() = default;
-	void OnCollision(Collider* other);
+	void OnRaycastHit(Collider* other);
 	bool Intersects(Ray* ray, float& t);
 
 private:

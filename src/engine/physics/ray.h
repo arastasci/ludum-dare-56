@@ -4,16 +4,16 @@ struct Ray
 {
 	Ray(Vector3 origin, Vector3 direction) 
 	{
-		this->org = origin;
-		this->dir = direction;
+		this->origin = origin;
+		this->direction = direction;
 	}
 	~Ray() = default;
 	Vector3 GetPoint(float distance)
 	{
-				return org + dir * distance;
+				return origin + direction * distance;
 	}
-	Vector3 org;
-	Vector3 dir;
+	Vector3 origin;
+	Vector3 direction;
 
 };
 

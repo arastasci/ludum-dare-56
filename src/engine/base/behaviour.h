@@ -7,5 +7,6 @@ public:
 	virtual void Start();
 	virtual void OnDestroy();
 	virtual void Update();
+	virtual void OnRaycastHit();
 };
 

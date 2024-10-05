@@ -11,6 +11,7 @@
 #include "engine/base/Game.h"
 #include "engine/Vector3.h"
 #include "stepcount.h"
+#include "constants.h"
 int main()
 {
     if (!glfwInit())
@@ -27,7 +28,7 @@ int main()
 	    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); //uncomment this statement to fix compilation on OS X
     #endif
 
-	GLFWwindow* window = glfwCreateWindow(600, 400, "Minecraft alpha 1.0", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Minecraft alpha 1.0", NULL, NULL);
 
 	glfwMakeContextCurrent(window);
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
