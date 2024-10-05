@@ -2,27 +2,27 @@
 #include "object.h"
 
 class Scene;
-class component;
+class Component;
 class transform;
-
-class gameobject : public object
+class Behaviour;
+class gameobject : public Object
 {
 public:
 	gameobject();
-	~gameobject();
-	gameobject(transform& t);
-	
-	void AddComponent(component* comp);
-	component* GetComponent(const char* name) const;
+	gameobject(transform t);
+	~gameobject() = default;
+	static void Instantiate(gameobject go, transform t);
+	void AddComponent(Component* comp);
+	Component* GetComponent(const char* name) const;
 	void RemoveComponent(const char* name);
 	void Update();
 
 	transform* Transform;
 	Scene* Scene;
-	void Destroy();
-	void DestroyImmediate() ;
+	void DestroyImmediate();
 protected:
 private:
-	std::vector<component*> m_components;
+	std::vector<Component*> m_components;
+	std::vector<Behaviour*> m_behaviours;
 };
 

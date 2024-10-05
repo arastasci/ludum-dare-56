@@ -7,7 +7,10 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
-#include <vector> 
+#include "engine/base/transform.h"
+#include "engine/base/Game.h"
+#include "engine/Vector3.h"
+#include "stepcount.h"
 int main()
 {
     if (!glfwInit())
@@ -27,10 +30,21 @@ int main()
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
 	}
+
+	Game game;
+	//auto go = new gameobject(transform());
+	//go->AddComponent(new stepcount());
+	//gameobject::Instantiate(*go, transform());
+	//bool a = false;
 	while (!glfwWindowShouldClose(window))
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.69f, 0.92f, 0.92f, 1.0f);
+
+		game.Update();
+
+		//if (a)
+		//	game.ActiveScene->GameObjects[0]->Destroy();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

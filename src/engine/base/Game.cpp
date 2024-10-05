@@ -1,5 +1,12 @@
 #include "Game.h"
 
+
+Game::Game()
+{
+	m_scenes.push_back(new Scene());
+	ActiveScene = m_scenes[0];
+}
+
 void Game::Update()
 {
 	ActiveScene->Update();

@@ -1,7 +1,8 @@
 #include "transform.h"
 
-transform::transform()
+transform::transform() : Component("transform")
 {
+	parent = nullptr;
 }
 
 transform::~transform()

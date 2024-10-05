@@ -1,12 +1,11 @@
 #pragma once
-#include "object.h"
 #include "component.h"
-class Behaviour : public component
+class Behaviour : public Component
 {
-protected:
-	virtual void Start() = 0;
-	virtual void Update() = 0;
-	virtual void OnDestroy() = 0;
-
+public:
+	Behaviour(const char* name);
+	virtual void Start();
+	virtual void OnDestroy();
+	virtual void Update();
 };
 

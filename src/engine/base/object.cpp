@@ -1,29 +1,30 @@
 #include "object.h"
 
-object::object()
+Object::Object()
 {
 
 }
 
-void object::setWillBeDestroyed()
+Object::Object(const char* name)
+{
+	this->name = name;
+}
+
+void Object::setWillBeDestroyed()
 {
 	m_WillBeDestroyed = true;
 }
 
-bool object::GetWillBeDestroyed() const
+bool Object::GetWillBeDestroyed() const
 {
 	return m_WillBeDestroyed;
 }
 
-void object::Destroy(object* o)
+void Object::Destroy()
 {
-	o->setWillBeDestroyed();
+	setWillBeDestroyed();
 }
 
-void object::Destroy()
-{
-}
-
-void object::DestroyImmediate()
+void Object::DestroyImmediate()
 {
 }
