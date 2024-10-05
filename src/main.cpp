@@ -10,7 +10,7 @@
 #include "engine/base/transform.h"
 #include "engine/base/Game.h"
 #include "engine/Vector3.h"
-#include "stepcount.h"
+#include "game/scripts/stepcount.h"
 #include "constants.h"
 #include "game/prefab/Grid.h"
 #include "engine/core/Window.h"
