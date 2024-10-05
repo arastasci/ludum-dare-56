@@ -7,7 +7,7 @@
 #include "texture.h"
 #include "../base/transform.h"
 #include "shader.h"
-#include "../base/renderinfo.h"
+#include "../base/renderproperties.h"
 
 class Renderer
 {
@@ -16,12 +16,12 @@ protected:
     static Renderer* instance;
     Shader* m_shader;
 
-    void initBuffer(RenderInfo *info, transform* t);
+    void initBuffer(RenderProperties *info, transform* t);
 public:
     Renderer(Renderer &other) = delete;
     void operator=(const Renderer &) = delete;
     
     static Renderer *GetInstance();
 
-    void Render(RenderInfo *info, transform* t);
+    void Render(RenderProperties *info, transform* t);
 };

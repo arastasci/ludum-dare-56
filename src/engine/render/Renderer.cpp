@@ -1,6 +1,6 @@
 #include "Renderer.h"
 #include "../base/transform.h"
-#include "../base/renderinfo.h"
+#include "../base/renderproperties.h"
 
 Renderer::Renderer(){
     m_shader = new Shader("src/engine/render/shader/vshader.glsl", "src/engine/render/shader/fshader.glsl");
@@ -21,26 +21,26 @@ Renderer* Renderer::GetInstance()
     return instance;
 }
 
-void Renderer::initBuffer(RenderInfo *info, transform* t){        
+void Renderer::initBuffer(RenderProperties *info, transform* t){        
     glGenBuffers(1, &(info->VBO));
     glBindBuffer(GL_ARRAY_BUFFER, info->VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * info->Vertices.size(), info->Vertices.data(), GL_STATIC_DRAW); 
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * (RenderProperties::Vertices.size()), RenderProperties::Vertices.data(), GL_STATIC_DRAW); 
 
     glGenVertexArrays(1, &(info->VAO));
     glBindVertexArray(info->VAO);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    glGenBuffers(1, &(info->VBO_tex));
-    glBindBuffer(GL_ARRAY_BUFFER, info->VBO_tex);
-    //glBufferData(GL_ARRAY_BUFFER, data->texCoords.size() * sizeof(float), data->texCoords.data(), GL_STATIC_DRAW);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(1);
+    // Texture coordinates
+    //glGenBuffers(1, &(info->VBO_tex));
+    //glBindBuffer(GL_ARRAY_BUFFER, info->VBO_tex);
+    //glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    //glEnableVertexAttribArray(1);
 
     info->HasBuffer = true;
 };
 
-void Renderer::Render(RenderInfo *info, transform* t){
+void Renderer::Render(RenderProperties *info, transform* t){
     if(!info->HasBuffer)
         initBuffer(info, t);
     
@@ -55,6 +55,6 @@ void Renderer::Render(RenderInfo *info, transform* t){
     m_shader->setMat4("model", model);
 
     glBindVertexArray(info->VAO);
-    glDrawArrays(GL_TRIANGLES, 0, info->Vertices.size());
+    glDrawArrays(GL_TRIANGLES, 0, RenderProperties::Vertices.size());
     glBindVertexArray(0);
 };

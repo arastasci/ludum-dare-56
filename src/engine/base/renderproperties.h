@@ -7,14 +7,14 @@
 #include "../render/texture.h"
 #include "transform.h"
 
-
-class RenderInfo : public Component {
+class RenderProperties : public Component {
 public:
-    RenderInfo() : Component("RenderInfo") {};
+    RenderProperties() : Component("RenderProperties") {};
 
     bool HasBuffer = false;
     GLuint VAO, VBO, EBO, VBO_tex;
     Texture Texture;
     std::vector<float> TexCoords;
-    std::vector<float> Vertices;
+    static std::vector<float> Vertices;
 };
+
