@@ -1,18 +1,14 @@
 #include "gameobject.h"
 #include "Game.h"
 #include "transform.h"
+#include "../render/Renderer.h"
 
-gameobject::gameobject()
-{
-	Game::ActiveScene->AddGameObject(this);
-	Transform = new transform();
-}
-
-gameobject::gameobject(transform& t)
+gameobject::gameobject(transform& t, renderinfo& info)
 {
 	Game::ActiveScene->AddGameObject(this);
 	Transform = new transform(t);
-}
+	RenderInfo = info;
+};
 
 void gameobject::DestroyImmediate()
 {

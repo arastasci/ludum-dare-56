@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "../render/Renderer.h"
 
 void Scene::Update()
 {
@@ -18,6 +19,15 @@ void Scene::Update()
 	}
 	// destroy objects
 	// for renderers, render
+
+	Renderer *renderer = Renderer::GetInstance();
+	for (auto go : GameObjects)
+	{
+		if (go != nullptr)
+		{
+			renderer->Render(go->RenderInfo, *go->Transform);
+		}
+	}
 }
 
 void Scene::AddGameObject(gameobject* go)
