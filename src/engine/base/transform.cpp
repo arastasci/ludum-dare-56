@@ -3,7 +3,8 @@
 
 transform::transform() : Component("transform")
 {
-	position = Vector3(0.2f, 0, 0);
+	scale = Vector3(100, 100, 100);
+	position = Vector3(0, 0, 0);
 	parent = nullptr;
 }
 
