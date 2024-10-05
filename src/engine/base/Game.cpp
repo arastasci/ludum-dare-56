@@ -3,17 +3,24 @@
 
 Game::Game()
 {
-	m_scenes.push_back(new Scene());
-	ActiveScene = m_scenes[0];
-	KeyInput::getInstance();
-	MouseInput::getInstance();
+	
 }
 
 void Game::Update()
 {
+	m_timer->update();
 	ActiveScene->Update();
 	KeyInput::getInstance().update();
 	MouseInput::getInstance().update();
+}
+
+void Game::Initialize()
+{
+	m_scenes.push_back(new Scene());
+	ActiveScene = m_scenes[0];
+	KeyInput::getInstance();
+	MouseInput::getInstance();
+	m_timer = &(Timer::getInstance());	
 }
 
 void Game::AddScene(Scene* scene)
