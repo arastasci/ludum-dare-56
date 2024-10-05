@@ -37,9 +37,11 @@ int main()
 	}
 
 	Game game;
+	game.Initialize();
 	auto go = new GameObject(transform());
 	go->AddComponent(new stepcount());
 	GameObject::Instantiate(*go, transform());
+
 	//bool a = false;
 	while (!glfwWindowShouldClose(window))
 	{
