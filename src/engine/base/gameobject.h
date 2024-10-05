@@ -9,7 +9,7 @@ class transform;
 class gameobject : public object
 {
 public:
-	gameobject(transform& t, RenderInfo& info);
+	gameobject(transform& t, renderinfo& info);
 	~gameobject();
 
 	void AddComponent(component* comp);
@@ -22,7 +22,7 @@ public:
 	void Destroy();
 	void DestroyImmediate() ;
 
-	RenderInfo RenderInfo;
+	renderinfo RenderInfo;
 protected:
 private:
 	std::vector<component*> m_components;

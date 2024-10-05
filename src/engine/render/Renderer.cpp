@@ -20,7 +20,7 @@ Renderer* Renderer::GetInstance()
     return instance;
 }
 
-void Renderer::initBuffer(RenderInfo &info, transform& t){        
+void Renderer::initBuffer(renderinfo &info, transform& t){        
     glGenBuffers(1, &(info.VBO));
     glBindBuffer(GL_ARRAY_BUFFER, info.VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * info.vertices.size(), info.vertices.data(), GL_STATIC_DRAW); 
@@ -39,7 +39,7 @@ void Renderer::initBuffer(RenderInfo &info, transform& t){
     info.hasBuffer = true;
 };
 
-void Renderer::Render(RenderInfo &info, transform& t){
+void Renderer::Render(renderinfo &info, transform& t){
     if(!info.hasBuffer)
         initBuffer(info, t);
     

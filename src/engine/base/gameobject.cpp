@@ -3,7 +3,7 @@
 #include "transform.h"
 #include "../render/Renderer.h"
 
-gameobject::gameobject(transform& t, RenderInfo& info)
+gameobject::gameobject(transform& t, renderinfo& info)
 {
 	Game::ActiveScene->AddGameObject(this);
 	Transform = new transform(t);

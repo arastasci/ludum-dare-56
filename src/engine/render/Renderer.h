@@ -8,7 +8,7 @@
 #include "../base/transform.h"
 #include "shader.h"
 
-struct RenderInfo {
+struct renderinfo {
     bool hasBuffer = false;
     GLuint VAO, VBO, EBO, VBO_tex;
     Texture texture;
@@ -23,12 +23,12 @@ protected:
     static Renderer* instance;
     Shader* m_shader;
 
-    void initBuffer(RenderInfo &info, transform& t);
+    void initBuffer(renderinfo &info, transform& t);
 public:
     Renderer(Renderer &other) = delete;
     void operator=(const Renderer &) = delete;
     
     static Renderer *GetInstance();
 
-    void Render(RenderInfo &info, transform& t);
+    void Render(renderinfo &info, transform& t);
 };
