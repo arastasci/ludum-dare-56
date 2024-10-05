@@ -41,6 +41,11 @@ int main()
 	auto go = new GameObject(transform());
 	go->AddComponent(new stepcount());
 	GameObject::Instantiate(*go, transform());
+	
+	RenderProperties* rp = new RenderProperties{};
+	go->AddComponent(rp);
+
+	game.ActiveScene->AddGameObject(go);
 
 	//bool a = false;
 	while (!glfwWindowShouldClose(window))
