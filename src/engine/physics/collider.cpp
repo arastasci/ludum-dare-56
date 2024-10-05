@@ -12,9 +12,10 @@ Collider::Collider(Vector3 boundingBoxSize) : Component("Collider")
 	m_boundingBoxSize = boundingBoxSize;
 }
 
-void Collider::OnCollision(Collider* other)
+void Collider::OnRaycastHit(Collider* other)
 {
 	// Do something
+    this->GameObject->OnRaycastHit();
 }
 
 bool Collider::Intersects(Ray* ray, float& t)

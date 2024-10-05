@@ -38,6 +38,14 @@ void GameObject::DestroyImmediate()
 	free(Transform);
 }
 
+void GameObject::OnRaycastHit()
+{
+	for (Behaviour* b : m_behaviours)
+	{
+		b->OnRaycastHit();
+	}
+}
+
 void GameObject::AddComponent(Component* comp)
 {
 	comp->GameObject = this;

@@ -41,6 +41,6 @@ void ScreenRaycastHandler::Raycast(double xpos, double ypos)
 	}
     if (collidedCollider != nullptr)
     {
-		collidedCollider->OnCollision(collidedCollider);
+		collidedCollider->OnRaycastHit(collidedCollider);
 	}
 }

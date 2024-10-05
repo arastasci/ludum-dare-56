@@ -21,7 +21,7 @@ public:
 	transform* Transform;
 	Scene* Scene;
 	void DestroyImmediate();
-
+	void OnRaycastHit();
 protected:
 private:
 	std::vector<Component*> m_components;
