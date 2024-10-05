@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "../render/Renderer.h"
 #include "renderproperties.h"
+#include "gameobject.h"
 #include <iostream>
 
 Scene::Scene()

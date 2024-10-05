@@ -1,25 +1,31 @@
-#include "gameobject.h"
 #include "Game.h"
+#include "gameobject.h"
 #include "transform.h"
 #include "behaviour.h"
+#include <iostream>
 
-void GameObject::Instantiate(GameObject go, transform t)
-{
-	GameObject* newGo = new GameObject(t);
-	for (Component* c : go.m_components)
-	{
-		newGo->AddComponent(c);
-	}
-	Game::ActiveScene->AddGameObject(newGo);
-}
-GameObject::GameObject()
-{
-	m_components = std::vector<Component*>(0);
-	m_behaviours = std::vector<Behaviour*>(0);
-}
+GameObject::GameObject(){};
+
 GameObject::GameObject(transform t) : GameObject()
 {
+	std::cout << "Creating gameobject" << std::endl;
 	Transform = new transform(t);
+};
+
+GameObject::GameObject(std::vector<Component*> components) : GameObject()
+{
+	for (Component* c : components)
+	{
+		this->AddComponent(c);
+	}
+};
+
+GameObject::GameObject(transform t, std::vector<Component*> components) : GameObject(t)
+{
+	for (Component* c : components)
+	{
+		this->AddComponent(c);
+	}
 };
 
 void GameObject::DestroyImmediate()
@@ -40,6 +46,7 @@ void GameObject::DestroyImmediate()
 
 void GameObject::AddComponent(Component* comp)
 {
+	std::cout << "Adding component " << comp->name << std::endl;
 	comp->GameObject = this;
 	
 	m_components.push_back(comp);

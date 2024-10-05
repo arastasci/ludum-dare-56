@@ -11,6 +11,7 @@
 #include "engine/base/Game.h"
 #include "engine/Vector3.h"
 #include "stepcount.h"
+#include "game/prefab/Grid.h"
 int main()
 {
     if (!glfwInit())
@@ -42,17 +43,9 @@ int main()
 
 	Game game;
 	game.Initialize();
-	auto go = new GameObject(transform());
-	go->AddComponent(new stepcount());
-	GameObject::Instantiate(*go, transform());
 	
-	RenderProperties* rp = new RenderProperties(
-		std::make_pair(1.0, 4.0)
-	);
-	go->AddComponent(rp);
-
-	game.ActiveScene->AddGameObject(go);
-
+	GameObject::Instantiate<Grid>(transform{});
+	
 	//bool a = false;
 	while (!glfwWindowShouldClose(window))
 	{
