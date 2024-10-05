@@ -11,7 +11,7 @@ public:
 	Scene();
 	~Scene() = default;
 	void Update();
-	void AddGameObject(gameobject* go);
-	std::vector<gameobject*> GameObjects;
+	void AddGameObject(GameObject* go);
+	std::vector<GameObject*> GameObjects;
 	std::vector<collider*> Colliders;
 };

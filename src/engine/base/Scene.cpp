@@ -2,7 +2,7 @@
 
 Scene::Scene()
 {
-	GameObjects = std::vector<gameobject*>(GAMEOBJECT_COUNT);
+	GameObjects = std::vector<GameObject*>(GAMEOBJECT_COUNT);
 }
 
 void Scene::Update()
@@ -25,9 +25,9 @@ void Scene::Update()
 	// for renderers, render
 }
 
-void Scene::AddGameObject(gameobject* go)
+void Scene::AddGameObject(GameObject* go)
 {
-	for (int i = 0; i < GAMEOBJECT_COUNT; i++)
+	for (int i = 0; i < GameObjects.size(); i++)
 	{
 		if (GameObjects[i] == nullptr)
 		{

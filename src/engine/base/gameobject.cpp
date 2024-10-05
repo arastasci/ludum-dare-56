@@ -3,26 +3,26 @@
 #include "transform.h"
 #include "behaviour.h"
 
-void gameobject::Instantiate(gameobject go, transform t)
+void GameObject::Instantiate(GameObject go, transform t)
 {
-	gameobject* newGo = new gameobject(t);
+	GameObject* newGo = new GameObject(t);
 	for (Component* c : go.m_components)
 	{
 		newGo->AddComponent(c);
 	}
 	Game::ActiveScene->AddGameObject(newGo);
 }
-gameobject::gameobject()
+GameObject::GameObject()
 {
 	m_components = std::vector<Component*>(0);
 	m_behaviours = std::vector<Behaviour*>(0);
 }
-gameobject::gameobject(transform t) : gameobject()
+GameObject::GameObject(transform t) : GameObject()
 {
 	Transform = new transform(t);
 }
 
-void gameobject::DestroyImmediate()
+void GameObject::DestroyImmediate()
 {
 	for(Component * c : m_components)
 	{
@@ -38,7 +38,7 @@ void gameobject::DestroyImmediate()
 	free(Transform);
 }
 
-void gameobject::AddComponent(Component* comp)
+void GameObject::AddComponent(Component* comp)
 {
 	comp->GameObject = this;
 	
@@ -51,7 +51,7 @@ void gameobject::AddComponent(Component* comp)
 	}
 }
 
-Component* gameobject::GetComponent(const char* name) const
+Component* GameObject::GetComponent(const char* name) const
 {
 	for (int i = 0; i < m_components.size(); i++)
 	{
@@ -62,7 +62,7 @@ Component* gameobject::GetComponent(const char* name) const
 	}
 }
 
-void gameobject::RemoveComponent(const char* name)
+void GameObject::RemoveComponent(const char* name)
 {
 	for (int i = 0; i < m_components.size(); i++)
 	{
@@ -76,7 +76,7 @@ void gameobject::RemoveComponent(const char* name)
 	}
 }
 
-void gameobject::Update()
+void GameObject::Update()
 {
 	for (Behaviour* b : m_behaviours)
 	{

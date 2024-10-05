@@ -5,13 +5,13 @@ class Scene;
 class Component;
 class transform;
 class Behaviour;
-class gameobject : public Object
+class GameObject : public Object
 {
 public:
-	gameobject();
-	gameobject(transform t);
-	~gameobject() = default;
-	static void Instantiate(gameobject go, transform t);
+	GameObject();
+	GameObject(transform t);
+	~GameObject() = default;
+	static void Instantiate(GameObject go, transform t);
 	void AddComponent(Component* comp);
 	Component* GetComponent(const char* name) const;
 	void RemoveComponent(const char* name);

@@ -32,9 +32,9 @@ int main()
 	}
 
 	Game game;
-	//auto go = new gameobject(transform());
+	//auto go = new GameObject(transform());
 	//go->AddComponent(new stepcount());
-	//gameobject::Instantiate(*go, transform());
+	//GameObject::Instantiate(*go, transform());
 	//bool a = false;
 	while (!glfwWindowShouldClose(window))
 	{
