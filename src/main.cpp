@@ -44,13 +44,13 @@ int main()
 	game.Initialize();
 	auto go = new GameObject(transform());
 	go->AddComponent(new stepcount());
-	GameObject::Instantiate(*go, transform());
+	//GameObject::Instantiate(*go, transform());
 	
 	RenderProperties* rp = new RenderProperties(
 		std::make_pair(1.0, 4.0)
 	);
 	go->AddComponent(rp);
-
+	go->AddComponent(new Collider(Vector3(1,1, 0)));
 	game.ActiveScene->AddGameObject(go);
 
 	//bool a = false;

@@ -49,6 +49,11 @@ void GameObject::AddComponent(Component* comp)
 		behaviour->Start();
 		m_behaviours.push_back(behaviour);
 	}
+	auto collider = dynamic_cast<Collider*>(comp);
+	if (collider != nullptr)
+	{
+		Game::ActiveScene->Colliders.push_back(collider);
+	}
 }
 
 Component* GameObject::GetComponent(const char* name) const

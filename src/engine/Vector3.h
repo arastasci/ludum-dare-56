@@ -1,6 +1,6 @@
 #pragma once
 #include <cmath>
-
+#include <glm/glm.hpp>
 struct Vector3 {
 	float x, y, z;
 
@@ -50,6 +50,10 @@ struct Vector3 {
 		y /= scalar;
 		z /= scalar;
 		return *this;
+	}
+
+	glm::vec3 toGlmVec3() {
+		return glm::vec3(x, y, z);
 	}
 
 	bool operator==(const Vector3& other) const {

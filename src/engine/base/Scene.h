@@ -13,5 +13,5 @@ public:
 	void Update();
 	void AddGameObject(GameObject* go);
 	std::vector<GameObject*> GameObjects;
-	std::vector<collider*> Colliders;
+	std::vector<Collider*> Colliders;
 };

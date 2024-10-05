@@ -2,6 +2,7 @@
 #include <vector>
 #include "Scene.h"
 #include "../timer.h"
+#include "../physics/screen_raycast_handler.h"
 class Game
 {
 public:
@@ -13,7 +14,9 @@ public:
 	void Update();
 	static Scene* ActiveScene;
 private:
+	ScreenRaycastHandler* m_raycastHandler;
 	std::vector<Scene*> m_scenes;
 	Timer* m_timer;
+	
 };
 
