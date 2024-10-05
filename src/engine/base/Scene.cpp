@@ -1,12 +1,17 @@
 #include "Scene.h"
 #include "../render/Renderer.h"
 
+Scene::Scene()
+{
+	GameObjects = std::vector<GameObject*>(GAMEOBJECT_COUNT);
+}
+
 void Scene::Update()
 {
-	// PhysicsSolver::Update(Colliders);
 	for (int i = 0; i < GameObjects.size(); i++)
 	{
-		GameObjects[i]->Update();
+		if(GameObjects[i] != nullptr)
+			GameObjects[i]->Update();
 	}
 	// TODO: remove destroyed objects or replace them when adding
 	for (auto go : GameObjects)
@@ -30,6 +35,15 @@ void Scene::Update()
 	}
 }
 
-void Scene::AddGameObject(gameobject* go)
+void Scene::AddGameObject(GameObject* go)
 {
+	for (int i = 0; i < GameObjects.size(); i++)
+	{
+		if (GameObjects[i] == nullptr)
+		{
+			GameObjects[i] = go;
+			return;
+		}
+	}
+	GameObjects.push_back(go);
 }

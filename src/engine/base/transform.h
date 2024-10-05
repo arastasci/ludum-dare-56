@@ -1,7 +1,7 @@
 #pragma once
 #include "component.h"
 #include "../Vector3.h"
-class transform : public component
+class transform : public Component
 {
 public:
 	transform();

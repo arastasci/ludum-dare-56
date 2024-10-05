@@ -5,7 +5,7 @@ class Game
 {
 public:
 	Game();
-	~Game();
+	~Game() = default;
 	void AddScene(Scene* scene);
 	void RemoveScene(Scene* scene);
 	void Update();

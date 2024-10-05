@@ -1,19 +1,37 @@
 #include "gameobject.h"
 #include "Game.h"
 #include "transform.h"
-#include "../render/Renderer.h"
+#include "behaviour.h"
 
-gameobject::gameobject(transform& t, renderinfo& info)
+void GameObject::Instantiate(GameObject go, transform t)
 {
-	Game::ActiveScene->AddGameObject(this);
+	GameObject* newGo = new GameObject(t);
+	for (Component* c : go.m_components)
+	{
+		newGo->AddComponent(c);
+	}
+	Game::ActiveScene->AddGameObject(newGo);
+}
+GameObject::GameObject()
+{
+	m_components = std::vector<Component*>(0);
+	m_behaviours = std::vector<Behaviour*>(0);
+}
+GameObject::GameObject(transform t) : GameObject()
+{
 	Transform = new transform(t);
 	RenderInfo = info;
 };
 
-void gameobject::DestroyImmediate()
+void GameObject::DestroyImmediate()
 {
-	for(component * c : m_components)
+	for(Component * c : m_components)
 	{
+		auto behaviour = dynamic_cast<Behaviour*>(c);
+		if (behaviour != nullptr)
+		{
+			behaviour->OnDestroy();
+		}
 		free(c);
 	}
 
@@ -21,19 +39,37 @@ void gameobject::DestroyImmediate()
 	free(Transform);
 }
 
-void gameobject::AddComponent(component* comp)
+void GameObject::AddComponent(Component* comp)
 {
 	comp->GameObject = this;
+	
 	m_components.push_back(comp);
+	auto behaviour = dynamic_cast<Behaviour*>(comp);
+	if(behaviour != nullptr)
+	{
+		behaviour->Start();
+		m_behaviours.push_back(behaviour);
+	}
 }
 
-void gameobject::RemoveComponent(const char* name)
+Component* GameObject::GetComponent(const char* name) const
 {
 	for (int i = 0; i < m_components.size(); i++)
 	{
 		if (m_components[i]->name == name)
 		{
-			component* c = m_components[i];
+			return m_components[i];
+		}
+	}
+}
+
+void GameObject::RemoveComponent(const char* name)
+{
+	for (int i = 0; i < m_components.size(); i++)
+	{
+		if (m_components[i]->name == name)
+		{
+			Component* c = m_components[i];
 			m_components.erase(m_components.begin() + i);
 			free(c);
 			return;
@@ -41,10 +77,11 @@ void gameobject::RemoveComponent(const char* name)
 	}
 }
 
-void gameobject::Update()
+void GameObject::Update()
 {
+	for (Behaviour* b : m_behaviours)
+	{
+		b->Update();
+	}
 }
 
-void gameobject::Destroy()
-{
-}

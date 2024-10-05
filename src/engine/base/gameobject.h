@@ -3,28 +3,30 @@
 #include "../render/Renderer.h"
 
 class Scene;
-class component;
+class Component;
 class transform;
-
-class gameobject : public object
+class Behaviour;
+class GameObject : public Object
 {
 public:
-	gameobject(transform& t, renderinfo& info);
-	~gameobject();
-
-	void AddComponent(component* comp);
-	component* GetComponent(const char* name) const;
+	GameObject();
+	GameObject(transform t);
+	~GameObject() = default;
+	static void Instantiate(GameObject go, transform t);
+	void AddComponent(Component* comp);
+	Component* GetComponent(const char* name) const;
 	void RemoveComponent(const char* name);
 	void Update();
 
 	transform* Transform;
 	Scene* Scene;
-	void Destroy();
-	void DestroyImmediate() ;
+	void DestroyImmediate();
 
 	renderinfo RenderInfo;
+
 protected:
 private:
-	std::vector<component*> m_components;
+	std::vector<Component*> m_components;
+	std::vector<Behaviour*> m_behaviours;
 };
 

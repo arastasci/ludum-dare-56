@@ -2,14 +2,16 @@
 #include "gameobject.h"
 #include "../physics/collider.h"
 
+#define GAMEOBJECT_COUNT 256
+#define COLLIDER_COUNT 256
+
 class Scene
 {
 public:
 	Scene();
-	~Scene();
-	void Start();
+	~Scene() = default;
 	void Update();
-	void AddGameObject(gameobject* go);
-	std::vector<gameobject*> GameObjects;
+	void AddGameObject(GameObject* go);
+	std::vector<GameObject*> GameObjects;
 	std::vector<collider*> Colliders;
 };

@@ -1,10 +1,10 @@
 #pragma once
 #include <vector>
-class object {
+class Object {
 public:
-	object();
+	Object();
+	Object(const char* name);
 	const char* name;
-	static void Destroy(object* o);
 	virtual void Destroy();
 	virtual void DestroyImmediate();
 

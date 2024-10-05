@@ -1,14 +1,7 @@
 #include "component.h"
 
-void component::Destroy(object o)
+Component::Component(const char* name) : Object(name)
 {
-    o.Destroy();
+    GameObject = nullptr; // the gameobject this Component is attached to will fill this in
 }
 
-void component::Destroy()
-{
-}
-
-void component::DestroyImmediate()
-{
-}
