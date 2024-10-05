@@ -36,13 +36,19 @@ int main()
 		return -1;
 	}
 
+	// Enable transparency for textures
+    glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	Game game;
 	game.Initialize();
 	auto go = new GameObject(transform());
 	go->AddComponent(new stepcount());
 	GameObject::Instantiate(*go, transform());
 	
-	RenderProperties* rp = new RenderProperties{};
+	RenderProperties* rp = new RenderProperties(
+		std::make_pair(1.0, 4.0)
+	);
 	go->AddComponent(rp);
 
 	game.ActiveScene->AddGameObject(go);

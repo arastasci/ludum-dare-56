@@ -10,11 +10,11 @@
 class RenderProperties : public Component {
 public:
     RenderProperties() : Component("RenderProperties") {};
+    RenderProperties(std::pair<float, float> TextureCoords) : Component("RenderProperties"), TextureCoords(TextureCoords) {};
 
     bool HasBuffer = false;
     GLuint VAO, VBO, EBO, VBO_tex;
-    Texture Texture;
-    std::vector<float> TexCoords;
+    std::pair<float, float> TextureCoords = {0, 0};
     static std::vector<float> Vertices;
 };
 
