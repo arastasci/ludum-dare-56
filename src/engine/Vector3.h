@@ -1,6 +1,6 @@
 #pragma once
 #include <cmath>
-
+#include <glm/glm.hpp>
 struct Vector3 {
 	float x, y, z;
 
@@ -52,12 +52,20 @@ struct Vector3 {
 		return *this;
 	}
 
+	glm::vec3 toGlmVec3() {
+		return glm::vec3(x, y, z);
+	}
+
 	bool operator==(const Vector3& other) const {
 		return x == other.x && y == other.y && z == other.z;
 	}
 
 	bool operator!=(const Vector3& other) const {
 		return x != other.x || y != other.y || z != other.z;
+	}
+
+	Vector3 operator*(const Vector3& other) const {
+		return Vector3(x * other.x, y * other.y, z * other.z);
 	}
 
 	Vector3 operator-() const {

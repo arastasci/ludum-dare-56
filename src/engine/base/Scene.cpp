@@ -1,9 +1,8 @@
 #include "Scene.h"
 #include "../render/Renderer.h"
 #include "renderproperties.h"
-#include "gameobject.h"
 #include <iostream>
-
+#include "../physics/screen_raycast_handler.h"
 Scene::Scene()
 {
 	GameObjects = std::vector<GameObject*>(GAMEOBJECT_COUNT);
@@ -11,6 +10,7 @@ Scene::Scene()
 
 void Scene::Update()
 {
+	ScreenRaycastHandler::GetInstance().Colliders = &Colliders;
 	for (int i = 0; i < GameObjects.size(); i++)
 	{
 		if(GameObjects[i] != nullptr)

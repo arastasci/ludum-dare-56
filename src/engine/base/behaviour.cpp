@@ -15,3 +15,7 @@ void Behaviour::OnDestroy()
 void Behaviour::Update()
 {
 }
+
+void Behaviour::OnRaycastHit()
+{
+}

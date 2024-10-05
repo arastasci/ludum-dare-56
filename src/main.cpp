@@ -11,7 +11,7 @@
 #include "engine/base/Game.h"
 #include "engine/Vector3.h"
 #include "stepcount.h"
-#include "game/prefab/Grid.h"
+#include "constants.h"
 int main()
 {
     if (!glfwInit())
@@ -28,7 +28,7 @@ int main()
 	    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); //uncomment this statement to fix compilation on OS X
     #endif
 
-	GLFWwindow* window = glfwCreateWindow(600, 400, "Minecraft alpha 1.0", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Minecraft alpha 1.0", NULL, NULL);
 
 	glfwMakeContextCurrent(window);
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -43,9 +43,17 @@ int main()
 
 	Game game;
 	game.Initialize();
+	auto go = new GameObject(transform());
+	go->AddComponent(new stepcount());
+	//GameObject::Instantiate(*go, transform());
 	
-	GameObject::Instantiate<Grid>(transform{});
-	
+	RenderProperties* rp = new RenderProperties(
+		std::make_pair(1.0, 4.0)
+	);
+	go->AddComponent(rp);
+	go->AddComponent(new Collider(Vector3(1,1, 0)));
+	game.ActiveScene->AddGameObject(go);
+
 	//bool a = false;
 	while (!glfwWindowShouldClose(window))
 	{
