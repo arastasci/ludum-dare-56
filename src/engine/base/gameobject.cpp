@@ -20,7 +20,8 @@ GameObject::GameObject()
 GameObject::GameObject(transform t) : GameObject()
 {
 	Transform = new transform(t);
-}
+	RenderInfo = info;
+};
 
 void GameObject::DestroyImmediate()
 {

@@ -1,5 +1,6 @@
 #pragma once
 #include "object.h"
+#include "../render/Renderer.h"
 
 class Scene;
 class Component;
@@ -20,6 +21,9 @@ public:
 	transform* Transform;
 	Scene* Scene;
 	void DestroyImmediate();
+
+	renderinfo RenderInfo;
+
 protected:
 private:
 	std::vector<Component*> m_components;
