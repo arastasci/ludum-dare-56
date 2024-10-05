@@ -1,4 +1,5 @@
 #include "stepcount.h"
+#include "engine/base/gameobject.h"
 
 stepcount::stepcount() : Behaviour("stepcount")
 {

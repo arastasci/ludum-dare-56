@@ -1,4 +1,5 @@
 #include "transform.h"
+#include "gameobject.h"
 
 transform::transform() : Component("transform")
 {

@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include "../base/transform.h"
+#include "../base/renderinfo.h"
 
 Renderer::Renderer(){
     m_shader = new Shader("src/engine/render/shader/vshader.glsl", "src/engine/render/shader/fshader.glsl");
@@ -20,40 +21,40 @@ Renderer* Renderer::GetInstance()
     return instance;
 }
 
-void Renderer::initBuffer(renderinfo &info, transform& t){        
-    glGenBuffers(1, &(info.VBO));
-    glBindBuffer(GL_ARRAY_BUFFER, info.VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * info.vertices.size(), info.vertices.data(), GL_STATIC_DRAW); 
+void Renderer::initBuffer(RenderInfo *info, transform* t){        
+    glGenBuffers(1, &(info->VBO));
+    glBindBuffer(GL_ARRAY_BUFFER, info->VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * info->Vertices.size(), info->Vertices.data(), GL_STATIC_DRAW); 
 
-    glGenVertexArrays(1, &(info.VAO));
-    glBindVertexArray(info.VAO);
+    glGenVertexArrays(1, &(info->VAO));
+    glBindVertexArray(info->VAO);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    glGenBuffers(1, &(info.VBO_tex));
-    glBindBuffer(GL_ARRAY_BUFFER, info.VBO_tex);
+    glGenBuffers(1, &(info->VBO_tex));
+    glBindBuffer(GL_ARRAY_BUFFER, info->VBO_tex);
     //glBufferData(GL_ARRAY_BUFFER, data->texCoords.size() * sizeof(float), data->texCoords.data(), GL_STATIC_DRAW);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(1);
 
-    info.hasBuffer = true;
+    info->HasBuffer = true;
 };
 
-void Renderer::Render(renderinfo &info, transform& t){
-    if(!info.hasBuffer)
+void Renderer::Render(RenderInfo *info, transform* t){
+    if(!info->HasBuffer)
         initBuffer(info, t);
     
     glm::mat4 model = glm::mat4(1.0f);
 
-    model = glm::translate(model, glm::vec3(t.position.x, t.position.y, t.position.z));
-    model = glm::rotate(model, glm::radians(t.rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-    model = glm::rotate(model, glm::radians(t.rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-    model = glm::rotate(model, glm::radians(t.rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::scale(model, glm::vec3(t.scale.x, t.scale.y, t.scale.z));
+    model = glm::translate(model, glm::vec3(t->position.x, t->position.y, t->position.z));
+    model = glm::rotate(model, glm::radians(t->rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(t->rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(t->rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+    model = glm::scale(model, glm::vec3(t->scale.x, t->scale.y, t->scale.z));
 
     m_shader->setMat4("model", model);
 
-    glBindVertexArray(info.VAO);
-    glDrawArrays(GL_TRIANGLES, 0, info.vertices.size());
+    glBindVertexArray(info->VAO);
+    glDrawArrays(GL_TRIANGLES, 0, info->Vertices.size());
     glBindVertexArray(0);
 };

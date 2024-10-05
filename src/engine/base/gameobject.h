@@ -22,8 +22,6 @@ public:
 	Scene* Scene;
 	void DestroyImmediate();
 
-	renderinfo RenderInfo;
-
 protected:
 private:
 	std::vector<Component*> m_components;

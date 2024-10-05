@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "../render/Renderer.h"
+#include "renderinfo.h"
 
 Scene::Scene()
 {
@@ -30,7 +31,11 @@ void Scene::Update()
 	{
 		if (go != nullptr)
 		{
-			renderer->Render(go->RenderInfo, *go->Transform);
+			// If gameobject has a renderinfo, render it
+			RenderInfo* info = dynamic_cast<RenderInfo*>(go->GetComponent("RenderInfo"));
+
+			if (info != nullptr)
+				renderer->Render(info, go->Transform);
 		}
 	}
 }
