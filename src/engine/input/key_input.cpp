@@ -1,4 +1,4 @@
-#include "input.h"
+#include "key_input.h"
 
 KeyInput::KeyInput()
 {
@@ -56,5 +56,5 @@ void KeyInput::callback(GLFWwindow* window, int key, int scancode, int action, i
 	{
 		input.m_keys[key] = KeyState::Repeat;
 	}
-
 }
+

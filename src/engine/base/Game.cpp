@@ -1,15 +1,19 @@
 #include "Game.h"
-
+#include "../input/input.h"
 
 Game::Game()
 {
 	m_scenes.push_back(new Scene());
 	ActiveScene = m_scenes[0];
+	KeyInput::getInstance();
+	MouseInput::getInstance();
 }
 
 void Game::Update()
 {
 	ActiveScene->Update();
+	KeyInput::getInstance().update();
+	MouseInput::getInstance().update();
 }
 
 void Game::AddScene(Scene* scene)
