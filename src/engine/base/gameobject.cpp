@@ -60,6 +60,7 @@ Component* GameObject::GetComponent(const char* name) const
 			return m_components[i];
 		}
 	}
+	return nullptr;
 }
 
 void GameObject::RemoveComponent(const char* name)
