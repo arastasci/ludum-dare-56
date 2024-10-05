@@ -13,6 +13,7 @@
 #include "stepcount.h"
 #include "constants.h"
 #include "game/prefab/Grid.h"
+#include "engine/core/Window.h"
 int main()
 {
     if (!glfwInit())
@@ -29,9 +30,8 @@ int main()
 	    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); //uncomment this statement to fix compilation on OS X
     #endif
 
-	GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Minecraft alpha 1.0", NULL, NULL);
-
-	glfwMakeContextCurrent(window);
+	auto* window = Window::GetInstance();
+	window->CreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
@@ -48,7 +48,7 @@ int main()
 	GameObject::Instantiate<Grid>(transform{});
 	
 	//bool a = false;
-	while (!glfwWindowShouldClose(window))
+	while (!window->ShouldClose())
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.69f, 0.92f, 0.92f, 1.0f);
@@ -57,7 +57,7 @@ int main()
 
 		//if (a)
 		//	game.ActiveScene->GameObjects[0]->Destroy();
-		glfwSwapBuffers(window);
+		window->SwapBuffers();
 		glfwPollEvents();
 	}
 	glfwTerminate();

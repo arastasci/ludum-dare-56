@@ -7,8 +7,8 @@
 Renderer::Renderer(){
     m_shader = new Shader("src/engine/render/shader/vshader.glsl", "src/engine/render/shader/fshader.glsl");
     m_shader->use();
-    auto aspect = 600.f / 400.f;
-    m_shader->setMat4("projection", glm::ortho(SCREEN_WIDTH / -2.f, SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / -2.f, SCREEN_HEIGHT / 2.f, 0.1f, 100.f));
+    auto aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+    m_shader->setMat4("projection", glm::ortho(-ORTHO_WIDTH, ORTHO_WIDTH, -ORTHO_HEIGHT, ORTHO_HEIGHT, 0.1f, 100.f));
     m_shader->setMat4("view", glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
     m_shader->setMat4("model", glm::mat4(1.0f));
 
