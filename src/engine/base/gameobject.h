@@ -9,10 +9,9 @@ class transform;
 class gameobject : public object
 {
 public:
-	gameobject();
+	gameobject(transform& t, RenderInfo& info);
 	~gameobject();
-	gameobject(transform& t);
-	
+
 	void AddComponent(component* comp);
 	component* GetComponent(const char* name) const;
 	void RemoveComponent(const char* name);
