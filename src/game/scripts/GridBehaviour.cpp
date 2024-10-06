@@ -3,24 +3,40 @@
 #include "../prefab/Grid.h"
 #include "../../engine/base/gameobject.h"
 #include "../prefab/Tile.h"
-
+#include "../prefab/Castle.h"
+#include "../prefab/Creature.h"
+#include "../prefab/Obstacle.h"
 
 void GridBehaviour::Start() {
-    for (int i = -5; i < 5; i++)
+    for (int i = -5; i < 6; i++)
     {
-        for (int j = -5; j < 5; j++)
+        for (int j = -5; j < 6; j++)
         {
             transform t;
             t.position = {(float) i, (float) j, 0.0};
-            GameObject::Instantiate<Tile>(t);
+
+            this->createObjectAtTile<Tile>(t);
         }
     }
+
+    // Bu böyle olmayacak, tile coordinatı almalı ama uyumam gerek bunu sabah değiştirebiliriz.
+    transform castleTransform;
+    castleTransform.position = {4.0, 4.0, 0.0};
+
+    this->createObjectAtTile<Castle>(castleTransform);
+
+    transform creatureTransform;
+    creatureTransform.position = {0.0, 0.0, 0.0};
+
+    this->createObjectAtTile<Creature>(creatureTransform);
+
+    transform obstacleTransform;
+    obstacleTransform.position = {2.0, 2.0, 0.0};
+    this->createObjectAtTile<Obstacle>(obstacleTransform);
 }
 
 void GridBehaviour::Update() {
-    std::cout << "GridBehaviour Update" << std::endl;
 }
 
 void GridBehaviour::OnDestroy() {
-    std::cout << "GridBehaviour OnDestroy" << std::endl;
 }

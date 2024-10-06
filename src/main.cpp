@@ -46,7 +46,7 @@ int main()
 	game.Initialize();
 	
 	GameObject::Instantiate<Grid>(transform{});
-	
+
 	//bool a = false;
 	while (!window->ShouldClose())
 	{

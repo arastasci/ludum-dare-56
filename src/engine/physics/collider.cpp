@@ -15,7 +15,7 @@ Collider::Collider(Vector3 boundingBoxSize) : Component("Collider")
 void Collider::OnRaycastHit(Collider* other)
 {
 	// Do something
-    this->GameObject->OnRaycastHit();
+    this->gameObject->OnRaycastHit();
 }
 
 bool Collider::Intersects(Ray* ray, float& t)
@@ -29,8 +29,8 @@ bool Collider::Intersects(Ray* ray, float& t)
     dirfrac.z = 1.0f / r.direction.z;
     // lb is the corner of AABB with minimal coordinates - left bottom, rt is maximal corner
     // r.org is origin of ray
-    auto pos = GameObject->Transform->position;
-    auto scale = GameObject->Transform->scale;
+    auto pos = gameObject->Transform->position;
+    auto scale = gameObject->Transform->scale;
     Vector3 lb = pos - m_boundingBoxSize * scale / 2.f;
     Vector3 rt = pos + m_boundingBoxSize * scale / 2.f;
 

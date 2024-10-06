@@ -55,7 +55,7 @@ void GameObject::OnRaycastHit()
 void GameObject::AddComponent(Component* comp)
 {
 	std::cout << "Adding component " << comp->name << std::endl;
-	comp->GameObject = this;
+	comp->gameObject = this;
 	
 	m_components.push_back(comp);
 	auto behaviour = dynamic_cast<Behaviour*>(comp);

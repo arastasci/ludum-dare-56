@@ -7,6 +7,6 @@ class Component : public Object
 {
 public:
 	Component(const char* name);
-	GameObject* GameObject;
+	GameObject* gameObject;
 };
 

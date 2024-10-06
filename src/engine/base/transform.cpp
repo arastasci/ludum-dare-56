@@ -12,14 +12,14 @@ transform::~transform()
 
 void transform::Destroy()
 {
-	GameObject->Destroy();
+	gameObject->Destroy();
 }
 
 void transform::DestroyImmediate()
 {
 	for (auto child : m_children)
 	{
-		child->GameObject->DestroyImmediate();
+		child->gameObject->DestroyImmediate();
 	}
 	m_children.clear();
 }
