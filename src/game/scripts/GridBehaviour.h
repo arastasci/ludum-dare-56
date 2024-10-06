@@ -4,6 +4,7 @@
 #include "../../engine/base/gameobject.h"
 #include "../prefab/Tile.h"
 #include "GridObjectBehaviour.h"
+
 class GridBehaviour : public Behaviour {
     public:
         GridBehaviour() : Behaviour("GridBehaviour") {};
@@ -23,8 +24,9 @@ class GridBehaviour : public Behaviour {
                 {0.0, 0.0, 0.0} }
             );
 
-            m_tiles[x + 5][y + 5]->GetComponent<TileBehaviour>()->gridObject = go;
-            static_cast<GameObject*>(go)->GetComponent<GridObjectBehaviour>()->Initialize(m_tiles[x + 5][y + 5]);
+            auto gridObjectBehaviour  = static_cast<GameObject*>(go)->GetComponent<GridObjectBehaviour>();
+            m_tiles[x + 5][y + 5]->GetComponent<TileBehaviour>()->gridObjects.push_back(gridObjectBehaviour);
+            gridObjectBehaviour->Initialize(m_tiles[x + 5][y + 5]);
 
             return go;
         }

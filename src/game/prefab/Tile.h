@@ -3,7 +3,6 @@
 #include "../../engine/base/renderproperties.h"
 #include "../scripts/TileBehaviour.h"
 #include "../../engine/physics/collider.h"
-#include "../../engine/physics/collider.h"
 
 class Tile : public GameObject
 {

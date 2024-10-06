@@ -1,6 +1,7 @@
 #pragma once
 #include "../../engine/base/behaviour.h"
-
+#include <vector>
+class GridObjectBehaviour;
 class TileBehaviour : public Behaviour
 {
 public:
@@ -9,7 +10,7 @@ public:
     void Update();
     void OnRaycastHit();
 
-    GameObject* gridObject;
+    std::vector<GridObjectBehaviour*> gridObjects;
 private:
     static std::vector<std::pair<float, float>> textureCoords;
     std::pair<float, float> m_selectedTextureCoord;
