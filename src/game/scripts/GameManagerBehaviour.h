@@ -1,5 +1,7 @@
 #pragma once
 #include "../../engine/base/behaviour.h"
+#include "../prefab/Life.h"
+
 class GameManagerBehaviour : public Behaviour
 {
 public: 
@@ -15,7 +17,9 @@ private:
 	int m_enemyCount = 0;
 	int m_lives = 3;
 	static GameManagerBehaviour* instance;
-	void EndGame(bool won);
+	std::vector<Life*> m_livesUI;
+	void endGame(bool won);
+	void decreaseLife();
 	
 };
 
