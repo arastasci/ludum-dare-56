@@ -21,12 +21,12 @@ class GridBehaviour : public Behaviour {
                 {(float)x, (float)y, 0.0},
                 {0.7f, 0.7f, 0.7f},
                 {0.0, 0.0, 0.0}},
-                m_tiles[x + 5][y + 5]->gameObject->Transform
+                m_tiles[x][y]->gameObject->Transform
             );
 
             auto gridObjectBehaviour  = static_cast<GameObject*>(go)->GetComponent<GridObjectBehaviour>();
 
-            m_tiles[x + 5][y + 5]->AddGridObject(gridObjectBehaviour);
+            m_tiles[x][y]->AddGridObject(gridObjectBehaviour);
 
             return go;
         }

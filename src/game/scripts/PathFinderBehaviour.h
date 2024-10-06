@@ -15,7 +15,6 @@ public:
 	PathFinderBehaviour();
 	void Start() override;
 	void Update() override {};
-	void Initialize();
 	std::vector<std::pair<int, int>> FindPath(std::pair<int, int> start, std::pair<int, int> goal);
 	std::vector<std::pair<int, int>> aStar(TileBehaviour* startTile, std::pair<int, int> start, std::pair<int, int> goal);
 	void OnDestroy() override {};

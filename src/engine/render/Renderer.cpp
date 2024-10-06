@@ -9,7 +9,7 @@ Renderer::Renderer(){
     m_shader->use();
     auto aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
     m_shader->setMat4("projection", glm::ortho(-ORTHO_WIDTH, ORTHO_WIDTH, -ORTHO_HEIGHT, ORTHO_HEIGHT, 0.1f, 100.f));
-    m_shader->setMat4("view", glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
+    m_shader->setMat4("view", glm::lookAt(glm::vec3(5.0f, 5.0f, 3.0f), glm::vec3(5.0f, 5.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
     m_shader->setMat4("model", glm::mat4(1.0f));
 
     GLuint texture;

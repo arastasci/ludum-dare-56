@@ -6,19 +6,24 @@
 #include "../../engine/timer.h"
 #include "../../engine/input/input.h"
 #include "PathFinderBehaviour.h"
-void CreatureBehaviour::Start() {}
+
+void CreatureBehaviour::Start() {
+    pathFinder = gameObject->GetComponent<PathFinderBehaviour>();
+}
 
 void CreatureBehaviour::Update() {
     // maybe access timer from the game?
     //this->gameObject->Transform->position.x += 0.001;
     auto time = Timer::getInstance().getElapsedTime();
+    auto parentTile = gameObject->Transform->GetParent()->gameObject->GetComponent<TileBehaviour>();
+    
     if (time - moveTimer > moveInterval && pathFinder->currentNodeIndex != pathFinder->currentPath.size())
     {
         moveTimer = time;
         int i = pathFinder->currentNodeIndex++;
         auto pair = pathFinder->currentPath[i];
-        auto x =  pair.first - ParentTile->x;
-        auto y = pair.second - ParentTile->y;
+        auto x = pair.first - parentTile->x;
+        auto y = pair.second - parentTile->y;
         Move(x, y);
     }
 }
@@ -36,11 +41,4 @@ void CreatureBehaviour::Move(int x, int y) {
 
 void CreatureBehaviour::OnDestroy() {
     std::cout << "CreatureBehaviour OnDestroy" << std::endl;
-}
-
-void CreatureBehaviour::Initialize(TileBehaviour* parentTile, GridBehaviour* gridBehaviour) 
-{
-    GridObjectBehaviour::Initialize(parentTile, gridBehaviour);
-    pathFinder = gameObject->GetComponent<PathFinderBehaviour>();
-    pathFinder->Initialize();
 }

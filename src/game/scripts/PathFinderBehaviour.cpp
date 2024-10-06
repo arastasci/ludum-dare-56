@@ -1,25 +1,25 @@
 #include "PathFinderBehaviour.h"
 #include "../../engine/base/GameObject.h"
+#include "TileBehaviour.h"
+
 PathFinderBehaviour::PathFinderBehaviour() : Behaviour("PathFinderBehaviour")
 {
 }
 
 void PathFinderBehaviour::Start()
 {
-
-}
-
-void PathFinderBehaviour::Initialize()
-{
-    gridObjectBehaviour = this->gameObject->GetComponent<GridObjectBehaviour>();
-    auto parentTile = gridObjectBehaviour->ParentTile;
+    auto parentTile = gameObject->Transform->GetParent()->gameObject->GetComponent<TileBehaviour>();
+    
     currentPath = FindPath({ parentTile->x , parentTile->y }, { 0,0 });
     currentNodeIndex = 0;
 }
 
+
 std::vector<std::pair<int,int>> PathFinderBehaviour::FindPath(std::pair<int, int> start, std::pair<int, int> goal)
 {
-	return aStar(gridObjectBehaviour->ParentTile, start, goal);
+    auto parentTile = gameObject->Transform->GetParent()->gameObject->GetComponent<TileBehaviour>();
+
+	return aStar(parentTile, start, goal);
 }
 
 using namespace std;

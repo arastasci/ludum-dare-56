@@ -23,7 +23,7 @@ void ScreenRaycastHandler::Raycast(double xpos, double ypos)
     float x = (2.0f * xpos / (float)windowWidth - 1) * (ORTHO_WIDTH);
     float y = (2.0f * ypos / (float)windowHeight - 1) * (ORTHO_HEIGHT);
 
-    Vector3 origin = Vector3(0, 0, -3) + Vector3(1, 0, 0) * x + Vector3(0, -1, 0) * y;
+    Vector3 origin = Vector3(5, 5, -3) + Vector3(1, 0, 0) * x + Vector3(0, -1, 0) * y;
     Ray* ray = new Ray(origin, camDirection);
    
     Collider* collidedCollider = nullptr;
