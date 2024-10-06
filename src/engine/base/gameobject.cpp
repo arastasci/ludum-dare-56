@@ -98,6 +98,17 @@ void GameObject::Update()
 	}
 }
 
+void GameObject::Awake()
+{
+	if (m_awakened)
+		return;
+	m_awakened = true;
+	for (auto i = 0; i < m_behaviours.size(); i++)
+	{
+		m_behaviours[i]->Awake();
+	}
+}
+
 void GameObject::Start()
 {
 	for (Behaviour* b : m_behaviours)

@@ -60,12 +60,14 @@ public:
 
 	void RemoveComponent(const char* name);
 	void Update();
+	void Awake();
 	void Start();
 
 	transform* Transform;
 	Scene* Scene;
 	void DestroyImmediate();
 	void OnRaycastHit();
+	bool m_awakened = false;
 protected:
 	std::vector<Component*> m_components;
 	std::vector<Behaviour*> m_behaviours;

@@ -42,18 +42,18 @@ int main()
     glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	Game game;
-	game.Initialize();
+	auto* game = Game::GetInstance();
+	game->Initialize();
 	
-	GameObject::Instantiate<Grid>(transform{});
-
-	//bool a = false;
+	auto grid = GameObject::Instantiate<Grid>(transform{});
+	grid->Awake();
+	game->Awake();
 	while (!window->ShouldClose())
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.69f, 0.92f, 0.92f, 1.0f);
 
-		game.Update();
+		game->Update();
 
 		//if (a)
 		//	game.ActiveScene->GameObjects[0]->Destroy();

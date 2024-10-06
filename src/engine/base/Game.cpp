@@ -13,6 +13,15 @@ void Game::Update()
 	KeyInput::getInstance().update();
 	MouseInput::getInstance().update();
 }
+Game* Game::instance = nullptr;
+	Game* Game::GetInstance()
+{
+	if (instance == nullptr)
+	{
+		instance = new Game();
+	}
+	return instance;
+}
 
 void Game::Initialize()
 {
@@ -21,6 +30,12 @@ void Game::Initialize()
 	KeyInput::getInstance();
 	MouseInput::getInstance();
 	m_timer = &(Timer::getInstance());	
+}
+
+void Game::Awake()
+{
+	m_awakened = true;
+	ActiveScene->Awake();
 }
 
 void Game::AddScene(Scene* scene)

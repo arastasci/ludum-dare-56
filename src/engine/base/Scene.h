@@ -11,6 +11,7 @@ class Scene
 public:
 	Scene();
 	~Scene() = default;
+	void Awake();
 	void Update();
 	void AddGameObject(GameObject* go);
 	std::vector<GameObject*> GameObjects;

@@ -9,6 +9,16 @@ Scene::Scene()
 	GameObjects = std::vector<GameObject *>(GAMEOBJECT_COUNT);
 }
 
+
+void Scene::Awake()
+{
+	for (auto go : m_awaitingToStart)
+	{
+		if (go != nullptr)
+			go->Awake();
+	}
+}
+
 void Scene::Update()
 {
 	// Start gameobjects

@@ -8,6 +8,10 @@ void Behaviour::Start()
 {
 }
 
+void Behaviour::Awake()
+{
+}
+
 void Behaviour::OnDestroy()
 {
 }
