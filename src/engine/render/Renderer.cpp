@@ -103,11 +103,11 @@ void Renderer::Render(RenderProperties *info, transform* t){
     
     glm::mat4 model = glm::mat4(1.0f);
 
-    model = glm::scale(model, glm::vec3(t->scale.x, t->scale.y, t->scale.z));
+    model = glm::translate(model, glm::vec3(t->position.x, t->position.y, t->position.z));
     model = glm::rotate(model, glm::radians(t->rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
     model = glm::rotate(model, glm::radians(t->rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
     model = glm::rotate(model, glm::radians(t->rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::translate(model, glm::vec3(t->position.x, t->position.y, t->position.z));
+    model = glm::scale(model, glm::vec3(t->scale.x, t->scale.y, t->scale.z));
 
     m_shader->setMat4("model", model);
 
