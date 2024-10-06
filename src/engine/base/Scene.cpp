@@ -34,20 +34,25 @@ void Scene::Update()
 	}
 
 	ScreenRaycastHandler::GetInstance().Colliders = &Colliders;
-	for (int i = 0; i < GameObjects.size(); i++)
+	auto gameObjectsSize = GameObjects.size();
+	for (int i = 0; i < gameObjectsSize; i++)
 	{
 		if (GameObjects[i] != nullptr)
 			GameObjects[i]->Update();
 	}
 	// TODO: remove destroyed objects or replace them when adding
-	for (auto go : GameObjects)
+	for (int i = 0; i < gameObjectsSize ; i++)
 	{
+		auto go = GameObjects[i];
 		if (go != nullptr && go->GetWillBeDestroyed())
 		{
 			go->DestroyImmediate();
-			free(go);
+			delete go;
+			GameObjects[i] = nullptr;
 		}
+
 	}
+
 	// destroy objects
 	// for renderers, render
 
