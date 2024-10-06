@@ -9,7 +9,7 @@ void CreatureBehaviour::Start() {}
 
 void CreatureBehaviour::Update() {
     // maybe access timer from the game?
-    this->gameObject->Transform->position.x += 0.001;
+    //this->gameObject->Transform->position.x += 0.001;
 }
 
 void CreatureBehaviour::OnDestroy() {

@@ -15,6 +15,10 @@ void GridBehaviour::Start() {
             this->createTile(i, j);
         }
     }
+
+    createObjectAtTile<Castle>(0, 0);
+    createObjectAtTile<Creature>(1, 1);
+    createObjectAtTile<Obstacle>(-2, -2);
 }
 
 void GridBehaviour::Update() {

@@ -1,9 +1,9 @@
 #pragma once
 #include "../../engine/base/behaviour.h"
-
-class CastleBehaviour : public Behaviour {
+#include "GridObjectBehaviour.h"
+class CastleBehaviour : public GridObjectBehaviour{
     public:
-        CastleBehaviour() : Behaviour("CastleBehaviour") {};
+        CastleBehaviour() : GridObjectBehaviour("CastleBehaviour", GridObjectType::Target) {};
         void Start();
         void Update();
         void OnDestroy();

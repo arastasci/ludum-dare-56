@@ -16,9 +16,9 @@ class GridObjectBehaviour : public Behaviour
 {
 public:
     GridObjectBehaviour(const char* name, GridObjectType type) : Behaviour(name), Type(type) {};
-    void Start();
-    void Update();
-    void OnDestroy();
+    void Start() {};
+    void Update() {};
+    void OnDestroy(){};
 
     void Initialize(Tile* parentTile);
 
