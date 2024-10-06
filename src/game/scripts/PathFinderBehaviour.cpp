@@ -1,6 +1,7 @@
 #include "PathFinderBehaviour.h"
 #include "../../engine/base/GameObject.h"
 #include "TileBehaviour.h"
+#include "GridBehaviour.h"
 
 PathFinderBehaviour::PathFinderBehaviour() : Behaviour("PathFinderBehaviour")
 {
@@ -10,7 +11,6 @@ void PathFinderBehaviour::Start()
 {
 
 }
-
 
 void PathFinderBehaviour::OnGridChanged()
 {
@@ -41,20 +41,22 @@ struct Node {
     int fCost() const {
         return gCost + hCost;
     }
+};
 
-    // Custom comparator for priority queue
-    bool operator<(const Node& other) const {
-        return fCost() > other.fCost();
-    }
+class Compare {
+    public:
+       bool operator()(Node *a, Node *b){
+            return a->fCost() > b->fCost();
+      }
 };
 
 // Manhattan distance heuristic
 int manhattanDistance(int x1, int y1, int x2, int y2) {
-    return abs(x1 - x2) + abs(y1 - y2);
+    return 0;
 }
 
 // Check if a position is within the grid and walkable
-bool isValid(int x, int y, TileBehaviour* tileBehaviour) {
+bool isValid(TileBehaviour* tileBehaviour) {
     return tileBehaviour != nullptr && tileBehaviour->IsWalkable();
 }
 
@@ -63,7 +65,7 @@ vector<pair<int, int>> PathFinderBehaviour::aStar( TileBehaviour* startTile, pai
     int rows = 11;
     int cols = 11;
     vector<vector<bool>> visited(rows, vector<bool>(cols, false));
-    priority_queue<Node*> openList;
+    priority_queue<Node*, std::vector<Node*>, Compare> openList;
 
     vector<Node*> nodes;
     Node* startNode = new Node(start.first, start.second, nodes);
@@ -89,23 +91,26 @@ vector<pair<int, int>> PathFinderBehaviour::aStar( TileBehaviour* startTile, pai
                 delete t;
             }
             reverse(path.begin(), path.end());
+            
             return path;
         }
 
-        if (visited[x][y]) continue;
         visited[x][y] = true;
 
         for (const auto& dir : directions) {
             int newX = x + dir.first;
             int newY = y + dir.second;
+            
             if(newX < 0 || newY < 0 || newX >= 11 || newY >= 11)
 				continue;
-            auto currentTile = startTile->GetNeighbour(dir.first, dir.second);
 
-            if (isValid(newX, newY, currentTile) && !visited[newX][newY]) {
+            auto currentTile = startTile->gridBehaviour->GetTileAt(newX, newY);
+            
+            if (isValid(currentTile) && !visited[newX][newY]) {
                 int newGCost = currentNode->gCost + 1;
                 int newHCost = manhattanDistance(newX, newY, goal.first, goal.second);
                 Node* neighbor = new Node(newX, newY, nodes, newGCost, newHCost, currentNode);
+                
                 openList.push(neighbor);
             }
         }
