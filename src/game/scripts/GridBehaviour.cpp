@@ -6,6 +6,7 @@
 #include "../prefab/Castle.h"
 #include "../prefab/Creature.h"
 #include "../prefab/Obstacle.h"
+#include "../prefab/Anvil.h"
 
 void GridBehaviour::Start() {
     for (int i = -5; i < 6; i++)
@@ -19,6 +20,7 @@ void GridBehaviour::Start() {
     createObjectAtTile<Castle>(0, 0);
     createObjectAtTile<Creature>(1, 1);
     createObjectAtTile<Obstacle>(-2, -2);
+    createObjectAtTile<Anvil>(-3, -3);
 }
 
 void GridBehaviour::Update() {

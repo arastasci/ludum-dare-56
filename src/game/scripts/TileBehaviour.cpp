@@ -4,6 +4,7 @@
 #include "../../engine/base/gameobject.h"
 #include "../../engine/input/input.h"
 #include "../prefab/Tile.h"
+#include "../prefab/Anvil.h"
 #include <tuple>
 #include "GridBehaviour.h"
 std::vector<std::pair<float, float>> TileBehaviour::textureCoords =  {
@@ -26,8 +27,11 @@ void TileBehaviour::Update() {
     RenderProperties* rp = this->gameObject->GetComponent<RenderProperties>();
     
     if(m_hovering){
-        if(MouseInput::getInstance().IsButtonRepeated(0)){
-            rp->SetTextureCoords({10, 6});
+        if(MouseInput::getInstance().IsButtonPressed(0)){
+            transform anvil(*this->gameObject->Transform);
+            anvil.position.z = 1.2;
+            anvil.scale = {0.7, 0.7, 0.7};
+            GameObject::Instantiate<Anvil>(anvil);
         } else {
             rp->SetTextureCoords({0, 11});
         }
