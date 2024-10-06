@@ -52,7 +52,7 @@ class Compare {
 
 // Manhattan distance heuristic
 int manhattanDistance(int x1, int y1, int x2, int y2) {
-    return 0;
+    return abs(x1 - x2) + abs(y1 - y2);
 }
 
 // Check if a position is within the grid and walkable
@@ -90,7 +90,7 @@ vector<pair<int, int>> PathFinderBehaviour::aStar( TileBehaviour* startTile, pai
                 temp = temp->parent;
                 delete t;
             }
-            reverse(path.begin(), path.end());
+            reverse(path.begin(), --path.end());
             
             return path;
         }

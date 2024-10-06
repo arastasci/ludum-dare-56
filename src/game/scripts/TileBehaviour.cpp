@@ -48,7 +48,7 @@ std::vector<GridObjectBehaviour*> TileBehaviour::GetObjectsByType(GridObjectType
 {
     std::vector<GridObjectBehaviour*> objects;
 
-    std::cout << "Getting objects by type" << gridObjects.size() << std::endl;
+    //std::cout << "Getting objects by type" << gridObjects.size() << std::endl;
 
     for (GridObjectBehaviour* obj : gridObjects)
     {

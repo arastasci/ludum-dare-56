@@ -28,8 +28,8 @@ void CreatureBehaviour::Update() {
             auto y = pair.second - parentTile->y;
             Move(x, y);
         }
-       
     }
+
     if (m_isMovingAnimation) {
         double dt = Timer::getInstance().getElapsedTime() - m_startedMovingAt;
 
@@ -84,5 +84,7 @@ void CreatureBehaviour::FindNearestTarget()
 
 void CreatureBehaviour::OnGridChanged()
 {
+    pathFinder->currentPath.clear();
+    pathFinder->currentNodeIndex = 0;
     FindNearestTarget();
 }
