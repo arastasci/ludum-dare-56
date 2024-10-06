@@ -5,7 +5,7 @@
 #include "../../engine/timer.h"
 #include <iostream>
 
-double AnvilBehaviour::animationDuration = 1.0;
+double AnvilBehaviour::animationDuration = .2f;
 
 void AnvilBehaviour::Start() {
     std::cout << "AnvilBehaviour Start" << std::endl;

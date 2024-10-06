@@ -6,6 +6,7 @@ class CreatureBehaviour : public AgentBehaviour {
         CreatureBehaviour() :  AgentBehaviour("CreatureBehaviour") {};
         void Start();
         void Update();
+        void OnDestroy();
         void OnGridChanged() override;
         void Move(int x, int y);
         void FindNearestTarget();

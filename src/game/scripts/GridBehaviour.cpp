@@ -19,6 +19,10 @@ void GridBehaviour::Awake()
 
     CreateObjectAtTile<Castle>(1,6);
     CreateObjectAtTile<Creature>(10, 10);
+    CreateObjectAtTile<Creature>(1, 1);
+    CreateObjectAtTile<Creature>(5, 4);
+    CreateObjectAtTile<Creature>(5, 3);
+    CreateObjectAtTile<Creature>(5, 2);
     CreateObjectAtTile<Obstacle>(2, 2);
     CreateObjectAtTile<Obstacle>(8, 8);
     CreateObjectAtTile<Obstacle>(8, 7);

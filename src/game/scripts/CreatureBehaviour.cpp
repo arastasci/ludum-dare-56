@@ -8,6 +8,8 @@
 #include "PathFinderBehaviour.h"
 #include "../../engine/easing.h"
 #include "GridBehaviour.h"
+#include "../prefab/Particle.h"
+
 #include <vector>
 void CreatureBehaviour::Start() {
     pathFinder = gameObject->GetComponent<PathFinderBehaviour>();
@@ -88,3 +90,12 @@ void CreatureBehaviour::OnGridChanged()
     pathFinder->currentNodeIndex = 0;
     FindNearestTarget();
 }
+
+void CreatureBehaviour::OnDestroy() {
+    GameObject::Instantiate<Particle>({
+        gameObject->Transform->position,
+        {1.0, 1.0, 1.0},
+        {0.0, 0.0, 0.0}
+    });
+}
+
