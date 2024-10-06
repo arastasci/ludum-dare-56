@@ -21,9 +21,10 @@ public:
 
     TileBehaviour* GetNeighbour(int x, int y);
     GridBehaviour* gridBehaviour;
+    bool IsWalkable();
     
     int x, y;
-private:
+private: 
     static std::vector<std::pair<float, float>> textureCoords;
     std::pair<float, float> m_selectedTextureCoord;
     std::vector<GridObjectBehaviour*> gridObjects;

@@ -33,14 +33,15 @@ void GridBehaviour::createTile(int x, int y)
     m_tiles[x + 5][y + 5] = GameObject::Instantiate<Tile>({{(float)x, (float)y, 0.0}, 
         {1.0, 1.0, 1.0}, 
         {0.0, 0.0, 0.0}}, gameObject->Transform)->GetComponent<TileBehaviour>();
-        
-    m_tiles[x + 5][y + 5]->Initialize(x, y, this);
+    m_tiles[x + 5][y + 5]->Initialize(x + 5, y + 5, this);
 }
 
 void GridBehaviour::OnDestroy() {
 }
 
+
+
 TileBehaviour* GridBehaviour::GetTileAt(int x, int y)
 {
-    return m_tiles[x + 5][y + 5];
+    return m_tiles[x ][y ];
 }

@@ -86,3 +86,8 @@ TileBehaviour* TileBehaviour::GetNeighbour(int x, int y)
 {
     return gridBehaviour->GetTileAt(this->x + x, this->y + y);
 }
+
+bool TileBehaviour::IsWalkable()
+{
+    return true;
+}
