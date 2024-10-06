@@ -5,12 +5,13 @@
 #include "../../engine/input/input.h"
 #include "../prefab/Tile.h"
 #include "../prefab/Anvil.h"
+#include "../prefab/Bomb.h"
 #include <tuple>
 #include "GridBehaviour.h"
 
 std::vector<std::pair<float, float>> TileBehaviour::textureCoords =  {
-        {0, 4},
-        {1, 4},
+        {0, 17},
+        {1, 17},
 };
 
 void TileBehaviour::Start() {
@@ -33,9 +34,9 @@ void TileBehaviour::Update() {
             anvil.position.z = 1.2;
             anvil.scale = {0.7, 0.7, 0.7};
 
-            gridBehaviour->CreateObjectAtTile<Anvil>(x, y);
+            gridBehaviour->CreateObjectAtTile<Bomb>(x, y);
         } else {
-            rp->SetTextureCoords({0, 11});
+            rp->SetTextureCoords({0, 24});
         }
     }
     else

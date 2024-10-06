@@ -18,6 +18,6 @@ void ParticleBehaviour::Update()
     {
         RenderProperties* rp = this->gameObject->GetComponent<RenderProperties>();
 
-        rp->SetTextureCoords({2.0f, 11.0f});
+        rp->SetTextureCoords({2.0f, 24.0f});
     }
 }

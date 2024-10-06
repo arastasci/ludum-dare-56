@@ -7,7 +7,7 @@ class Obstacle : public GameObject
 public:
     Obstacle(transform t) : GameObject(t,
                                        {
-                                           new RenderProperties(std::pair<float, float>(3.0f, 5.0f)),
+                                           new RenderProperties(std::pair<float, float>(3.0f, 18.0f)),
                                            new ObstacleBehaviour()
                                        }) {};
 };

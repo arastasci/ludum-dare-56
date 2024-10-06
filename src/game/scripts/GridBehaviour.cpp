@@ -7,6 +7,8 @@
 #include "../prefab/Creature.h"
 #include "../prefab/Obstacle.h"
 #include "../prefab/Anvil.h"
+#include "../prefab/Explosion.h"
+
 void GridBehaviour::Awake()
 {
     for (int i = 0; i < 11; i++)
@@ -33,6 +35,8 @@ void GridBehaviour::Awake()
     CreateObjectAtTile<Obstacle>(8, 2);
     CreateObjectAtTile<Obstacle>(8, 9);
     CreateObjectAtTile<Obstacle>(8, 10);
+
+    GameObject::Instantiate<Explosion>({{0, 0, 0.0}, {9.0, 9.0, 1}, {0, 0, 0}});
 
     std::cout << "Creating anvil" << std::endl;
     CreateObjectAtTile<Anvil>(3, 3);
