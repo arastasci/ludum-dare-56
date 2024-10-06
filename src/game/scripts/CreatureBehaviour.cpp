@@ -92,6 +92,7 @@ void CreatureBehaviour::OnGridChanged()
 }
 
 void CreatureBehaviour::OnDestroy() {
+    AgentBehaviour::OnDestroy();
     GameObject::Instantiate<Particle>({
         gameObject->Transform->position,
         {1.0, 1.0, 1.0},
