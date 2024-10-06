@@ -3,6 +3,7 @@
 #include "../../engine/base/transform.h"
 #include "../../engine/base/gameobject.h"
 #include "../prefab/Tile.h"
+class GridBehaviour;
 
 enum class GridObjectType
 {
@@ -20,8 +21,9 @@ public:
     void Update() {};
     void OnDestroy(){};
 
-    void Initialize(Tile* parentTile);
+    virtual void Initialize(TileBehaviour* parentTile, GridBehaviour* gridBehaviour);
 
-    Tile *ParentTile;
+    TileBehaviour *ParentTile;
+    GridBehaviour* gridBehaviour;
     GridObjectType Type;
 };

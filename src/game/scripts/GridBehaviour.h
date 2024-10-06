@@ -11,9 +11,9 @@ class GridBehaviour : public Behaviour {
         void Start();
         void Update();
         void OnDestroy();
-
+        TileBehaviour* GetTileAt(int x, int y);
     private:
-        Tile* m_tiles[11][11];
+        TileBehaviour* m_tiles[11][11];
 
         template <typename T,typename = std::enable_if_t<std::is_base_of_v<GameObject, T>>>
         T* createObjectAtTile(int x, int y)
@@ -25,8 +25,8 @@ class GridBehaviour : public Behaviour {
             );
 
             auto gridObjectBehaviour  = static_cast<GameObject*>(go)->GetComponent<GridObjectBehaviour>();
-            m_tiles[x + 5][y + 5]->GetComponent<TileBehaviour>()->gridObjects.push_back(gridObjectBehaviour);
-            gridObjectBehaviour->Initialize(m_tiles[x + 5][y + 5]);
+            m_tiles[x + 5][y + 5]->gridObjects.push_back(gridObjectBehaviour);
+            gridObjectBehaviour->Initialize(m_tiles[x + 5][y + 5], this);
 
             return go;
         }

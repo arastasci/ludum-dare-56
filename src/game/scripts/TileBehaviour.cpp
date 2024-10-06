@@ -5,7 +5,7 @@
 #include "../../engine/input/input.h"
 #include "../prefab/Tile.h"
 #include <tuple>
- 
+#include "GridBehaviour.h"
 std::vector<std::pair<float, float>> TileBehaviour::textureCoords =  {
         {0, 4},
         {1, 4},
@@ -40,4 +40,24 @@ void TileBehaviour::Update() {
 
 void TileBehaviour::OnRaycastHit() {
     m_hovering = true;
-};
+}
+void TileBehaviour::Initialize(int x, int y, GridBehaviour* gridBehaviour)
+{
+    this->x = x;
+	this->y = y;
+	this->gridBehaviour = gridBehaviour;
+}
+void TileBehaviour::RemoveGridObject(GridObjectBehaviour* gridObject)
+{
+	gridObjects.erase(std::remove(gridObjects.begin(), gridObjects.end(), gridObject), gridObjects.end());
+
+}
+void TileBehaviour::AddGridObject(GridObjectBehaviour* gridObject)
+{
+    gridObjects.push_back(gridObject);
+}
+
+TileBehaviour* TileBehaviour::GetNeighbour(int x, int y)
+{
+    return gridBehaviour->GetTileAt(this->x + x, this->y + y);
+}

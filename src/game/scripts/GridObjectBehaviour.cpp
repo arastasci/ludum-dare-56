@@ -1,6 +1,7 @@
 #include "GridObjectBehaviour.h"
 
-void GridObjectBehaviour::Initialize(Tile* parentTile)
+void GridObjectBehaviour::Initialize(TileBehaviour* parentTile, GridBehaviour* gb)
 {
 	ParentTile = parentTile;
+	gridBehaviour = gb;
 }

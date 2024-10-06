@@ -7,4 +7,6 @@ class CreatureBehaviour : public GridObjectBehaviour {
         void Start();
         void Update();
         void OnDestroy();
+
+        void Move(int x, int y);
 };
