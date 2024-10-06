@@ -21,5 +21,6 @@ public:
 	GridObjectBehaviour* gridObjectBehaviour;
 	std::vector<std::pair<int, int>> currentPath;
 	int currentNodeIndex;
+	std::pair<int, int> GetNextNode();
 };
 

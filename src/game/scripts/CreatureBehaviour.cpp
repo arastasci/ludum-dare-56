@@ -7,30 +7,34 @@
 #include "../../engine/input/input.h"
 #include "PathFinderBehaviour.h"
 #include "../../engine/easing.h"
+#include "GridBehaviour.h"
+#include <vector>
 void CreatureBehaviour::Start() {
     pathFinder = gameObject->GetComponent<PathFinderBehaviour>();
+    FindNearestTarget();
 }
 
 void CreatureBehaviour::Update() {
-    // maybe access timer from the game?
-    //this->gameObject->Transform->position.x += 0.001;
     auto time = Timer::getInstance().getElapsedTime();
     auto parentTile = gameObject->Transform->GetParent()->gameObject->GetComponent<TileBehaviour>();
     
-    if (time - moveTimer > moveInterval && pathFinder->currentNodeIndex != pathFinder->currentPath.size())
+    if (time - moveTimer > moveInterval)
     {
         moveTimer = time;
-        int i = pathFinder->currentNodeIndex++;
-        auto pair = pathFinder->currentPath[i];
-        auto x = pair.first - parentTile->x;
-        auto y = pair.second - parentTile->y;
-        Move(x, y);
+        auto pair = pathFinder->GetNextNode();
+        if (pair != std::make_pair(-1, -1))
+        {
+            auto x = pair.first - parentTile->x;
+            auto y = pair.second - parentTile->y;
+            Move(x, y);
+        }
+       
     }
     if (m_isMovingAnimation) {
         double dt = Timer::getInstance().getElapsedTime() - m_startedMovingAt;
 
-        if (dt < m_animationDuration) {
-
+        if (dt < m_animationDuration) 
+        {
             this->gameObject->Transform->position = Vector3::lerp(m_startPosition, m_endPosition, easeInOutBack(dt / m_animationDuration));
         }
         else
@@ -53,6 +57,29 @@ void CreatureBehaviour::Move(int x, int y) {
     this->gameObject->Transform->position = parentTile->gameObject->Transform->position;
     m_isMovingAnimation = true;
     m_startedMovingAt = Timer::getInstance().getElapsedTime();
+}
+
+void CreatureBehaviour::FindNearestTarget()
+{
+    auto parentTile = gameObject->Transform->GetParent()->gameObject->GetComponent<TileBehaviour>();
+    auto targets = gameObject->Transform->GetParent()->GetParent()->gameObject->GetComponent<GridBehaviour>()->GetTargetTiles();
+    std::vector<std::vector<std::pair<int, int>>> paths;
+    for (auto target : targets)
+    {
+        paths.push_back(pathFinder->FindPath({ parentTile->x , parentTile->y }, targets[0]));
+    }
+    int min = INT_MAX;
+    int index = -1;
+    for (int i = 0; i < paths.size(); i++)
+    {
+        if (paths[i].size() < min)
+        {
+			min = paths[i].size();
+			index = i;
+		}
+	}
+
+    pathFinder->currentPath = paths[index];
 }
 
 void CreatureBehaviour::OnDestroy() {

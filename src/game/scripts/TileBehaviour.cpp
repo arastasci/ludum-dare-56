@@ -84,10 +84,16 @@ void TileBehaviour::AddGridObject(GridObjectBehaviour* gridObject)
 
 TileBehaviour* TileBehaviour::GetNeighbour(int x, int y)
 {
+    auto newX = this->x + x;
+    auto newY = this->y + y;
+    if (newX < 0 || newY < 0 || newX >= 11 || newY >= 11)
+    {
+		return nullptr;
+	}
     return gridBehaviour->GetTileAt(this->x + x, this->y + y);
 }
 
 bool TileBehaviour::IsWalkable()
 {
-    return true;
+    return GetObjectsByType(GridObjectType::Obstacle).size() == 0;
 }

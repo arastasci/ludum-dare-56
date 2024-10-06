@@ -8,18 +8,17 @@ PathFinderBehaviour::PathFinderBehaviour() : Behaviour("PathFinderBehaviour")
 
 void PathFinderBehaviour::Start()
 {
-    auto parentTile = gameObject->Transform->GetParent()->gameObject->GetComponent<TileBehaviour>();
-    
-    currentPath = FindPath({ parentTile->x , parentTile->y }, { 0,0 });
-    currentNodeIndex = 0;
+
 }
 
 
 std::vector<std::pair<int,int>> PathFinderBehaviour::FindPath(std::pair<int, int> start, std::pair<int, int> goal)
 {
+    currentNodeIndex = 0;
     auto parentTile = gameObject->Transform->GetParent()->gameObject->GetComponent<TileBehaviour>();
 
-	return aStar(parentTile, start, goal);
+	currentPath = aStar(parentTile, start, goal);
+    return currentPath;
 }
 
 using namespace std;
@@ -49,7 +48,7 @@ int manhattanDistance(int x1, int y1, int x2, int y2) {
 
 // Check if a position is within the grid and walkable
 bool isValid(int x, int y, TileBehaviour* tileBehaviour) {
-    return x >= 0 && x < 11 && y >= 0 && y < 11 && tileBehaviour->IsWalkable() ;
+    return x >= 0 && x < 11 && y >= 0 && y < 11 && tileBehaviour != nullptr && tileBehaviour->IsWalkable() ;
 }
 
 // A* algorithm
@@ -89,6 +88,8 @@ vector<pair<int, int>> PathFinderBehaviour::aStar( TileBehaviour* startTile, pai
         for (const auto& dir : directions) {
             int newX = x + dir.first;
             int newY = y + dir.second;
+            if(newX < 0 || newY < 0 || newX >= 11 || newY >= 11)
+				continue;
             auto currentTile = startTile->GetNeighbour(dir.first, dir.second);
 
             if (isValid(newX, newY, currentTile) && !visited[newX][newY]) {
@@ -102,6 +103,12 @@ vector<pair<int, int>> PathFinderBehaviour::aStar( TileBehaviour* startTile, pai
 
     // Return an empty path if no path is found
     return {};
+}
+std::pair<int, int> PathFinderBehaviour::GetNextNode()
+{
+    if(currentNodeIndex < currentPath.size())
+    return currentPath[currentNodeIndex++];
+    return { -1,-1 };
 }
 //
 //int main() {

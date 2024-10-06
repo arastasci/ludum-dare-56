@@ -4,15 +4,16 @@
 #include "../../engine/base/gameobject.h"
 #include "../prefab/Tile.h"
 #include "GridObjectBehaviour.h"
-
+#include <vector>
 class GridBehaviour : public Behaviour {
     public:
         GridBehaviour() : Behaviour("GridBehaviour") {};
+        void Awake();
         void Start();
         void Update();
         void OnDestroy();
         TileBehaviour* GetTileAt(int x, int y);
-
+        std::vector <std::pair<int, int>> GetTargetTiles();
         template <typename T,typename = std::enable_if_t<std::is_base_of_v<GameObject, T>>>
         T* CreateObjectAtTile(int x, int y)
         {
