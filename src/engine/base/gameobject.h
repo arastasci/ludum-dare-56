@@ -3,6 +3,7 @@
 #include "object.h"
 #include "../render/Renderer.h"
 #include <type_traits>
+#include <iostream>
 
 class Scene;
 class Component;
@@ -29,7 +30,23 @@ public:
 	}
 
 	void AddComponent(Component* comp);
-	Component* GetComponent(const char* name) const;
+
+	template <typename T,typename = std::enable_if_t<std::is_base_of_v<Component, T>>>
+	T* GetComponent() const
+	{
+		for (int i = 0; i < m_components.size(); i++)
+		{
+			T* component = dynamic_cast<T*>(m_components[i]);
+			
+			if (component)
+			{
+				return component;
+			}
+		}
+		
+		return nullptr;
+	}
+
 	void RemoveComponent(const char* name);
 	void Update();
 

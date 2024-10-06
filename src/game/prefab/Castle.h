@@ -7,7 +7,6 @@ class Castle : public GameObject
 {
 public:
     Castle(transform t) : GameObject(t,
-                                   {new RenderProperties(std::pair<float, float>(4.0f, 3.0f)),
-                                   }
+                                   {new RenderProperties(std::pair<float, float>(4.0f, 3.0f)),}
                                    ) {};
 };

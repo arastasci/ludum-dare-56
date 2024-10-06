@@ -71,17 +71,7 @@ void GameObject::AddComponent(Component* comp)
 	}
 }
 
-Component* GameObject::GetComponent(const char* name) const
-{
-	for (int i = 0; i < m_components.size(); i++)
-	{
-		if (m_components[i]->name == name)
-		{
-			return m_components[i];
-		}
-	}
-	return nullptr;
-}
+
 
 void GameObject::RemoveComponent(const char* name)
 {

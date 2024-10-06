@@ -1,9 +1,9 @@
 #pragma once
-#include "../../engine/base/behaviour.h"
+#include "GridObjectBehaviour.h"
 
-class CreatureBehaviour : public Behaviour {
+class CreatureBehaviour : public GridObjectBehaviour {
     public:
-        CreatureBehaviour() : Behaviour("CreatureBehaviour") {};
+        CreatureBehaviour() :  GridObjectBehaviour("CreatureBehaviour", GridObjectType::Agent) {};
         void Start();
         void Update();
         void OnDestroy();

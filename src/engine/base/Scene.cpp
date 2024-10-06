@@ -35,7 +35,7 @@ void Scene::Update()
 		if (go != nullptr)
 		{
 			// If gameobject has a renderinfo, render it
-			RenderProperties* info = dynamic_cast<RenderProperties*>(go->GetComponent("RenderProperties"));
+			RenderProperties* info = go->GetComponent<RenderProperties>();
 
 			if (info != nullptr){
 				renderer->Render(info, go->Transform);

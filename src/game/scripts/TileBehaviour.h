@@ -8,6 +8,8 @@ public:
     void Start();
     void Update();
     void OnRaycastHit();
+
+    GameObject* gridObject;
 private:
     static std::vector<std::pair<float, float>> textureCoords;
     std::pair<float, float> m_selectedTextureCoord;

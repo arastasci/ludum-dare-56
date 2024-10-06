@@ -12,7 +12,7 @@ std::vector<std::pair<float, float>> TileBehaviour::textureCoords =  {
 };
 
 void TileBehaviour::Start() {
-    RenderProperties* rp = dynamic_cast<RenderProperties*>(this->gameObject->GetComponent("RenderProperties"));
+    RenderProperties* rp = this->gameObject->GetComponent<RenderProperties>();
     
     // Pick texture coord
     int option = rand() % this->textureCoords.size();
@@ -23,7 +23,7 @@ void TileBehaviour::Start() {
 
 void TileBehaviour::Update() {
     // std::cout << "TileBehaviour Update" << std::endl;
-    RenderProperties* rp = dynamic_cast<RenderProperties*>(this->gameObject->GetComponent("RenderProperties"));
+    RenderProperties* rp = this->gameObject->GetComponent<RenderProperties>();
     
     if(m_hovering){
         if(MouseInput::getInstance().IsButtonRepeated(0)){

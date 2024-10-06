@@ -12,39 +12,19 @@ void GridBehaviour::Start() {
     {
         for (int j = -5; j < 6; j++)
         {
-            transform t;
-            t.position = {(float) i, (float) j, 0.0};
-
-            this->createObjectAtTile<Tile>(t);
+            this->createTile(i, j);
         }
     }
-
-    // Bu böyle olmayacak, tile coordinatı almalı ama uyumam gerek bunu sabah değiştirebiliriz.
-    transform castleTransform = {
-        {4.0, 4.0, 0.0}, 
-        {1.0, 1.0, 1.0}, 
-        {0.0, 0.0, 0.0}
-    };
-
-    this->createObjectAtTile<Castle>(castleTransform);
-
-    transform creatureTransform = {
-        {-4.0, -4.0, 0.0}, 
-        {1.0, 1.0, 1.0}, 
-        {0.0, 0.0, 0.0}
-    };
-
-    this->createObjectAtTile<Creature>(creatureTransform);
-
-    transform obstacleTransform = {
-        {0.0, 0.0, 0.0}, 
-        {0.9f, 0.9f, 1.0f}, 
-        {0.0, 0.0, 0.0}
-    };
-    this->createObjectAtTile<Obstacle>(obstacleTransform);
 }
 
 void GridBehaviour::Update() {
+}
+
+void GridBehaviour::createTile(int x, int y)
+{
+    m_tiles[x + 5][y + 5] = GameObject::Instantiate<Tile>({{(float)x, (float)y, 0.0}, 
+        {1.0, 1.0, 1.0}, 
+        {0.0, 0.0, 0.0}});
 }
 
 void GridBehaviour::OnDestroy() {
