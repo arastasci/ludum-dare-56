@@ -17,6 +17,7 @@ class GridBehaviour : public Behaviour {
         std::vector <std::pair<int, int>> GetTargetTiles();
         void OnGridChanged();
         void RemoveAgent(AgentBehaviour* a);
+        void DecreaseEnemy();
         template <typename T,typename = std::enable_if_t<std::is_base_of_v<GameObject, T>>>
         T* CreateObjectAtTile(int x, int y)
         {
