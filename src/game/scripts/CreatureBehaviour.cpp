@@ -25,11 +25,13 @@ void CreatureBehaviour::Update() {
 
 
 void CreatureBehaviour::Move(int x, int y) {
-    auto nextParent = ParentTile->GetNeighbour(x, y);
-    ParentTile->RemoveGridObject(this);
+    auto parentTile = gameObject->Transform->GetParent()->gameObject->GetComponent<TileBehaviour>();
+    auto nextParent = parentTile->GetNeighbour(x, y);
+    
+    parentTile->RemoveGridObject(this);
     nextParent->AddGridObject(this);
-    ParentTile = nextParent;
-    this->gameObject->Transform->position = ParentTile->gameObject->Transform->position;
+    parentTile = nextParent;
+    this->gameObject->Transform->position = parentTile->gameObject->Transform->position;
 }
 
 void CreatureBehaviour::OnDestroy() {

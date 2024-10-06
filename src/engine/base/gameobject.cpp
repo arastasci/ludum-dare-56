@@ -9,7 +9,8 @@ GameObject::GameObject(){};
 GameObject::GameObject(transform t) : GameObject()
 {
 	std::cout << "Creating gameobject" << std::endl;
-	Transform = new transform(t);
+	Transform = new transform(t);	
+	Transform->gameObject = this;
 };
 
 GameObject::GameObject(std::vector<Component*> components) : GameObject()
@@ -18,6 +19,8 @@ GameObject::GameObject(std::vector<Component*> components) : GameObject()
 	{
 		this->AddComponent(c);
 	}
+
+	Transform->gameObject = this;
 };
 
 GameObject::GameObject(transform t, std::vector<Component*> components) : GameObject(t)
@@ -26,6 +29,8 @@ GameObject::GameObject(transform t, std::vector<Component*> components) : GameOb
 	{
 		this->AddComponent(c);
 	}
+	
+	Transform->gameObject = this;
 };
 
 void GameObject::DestroyImmediate()
@@ -61,7 +66,6 @@ void GameObject::AddComponent(Component* comp)
 	auto behaviour = dynamic_cast<Behaviour*>(comp);
 	if(behaviour != nullptr)
 	{
-		behaviour->Start();
 		m_behaviours.push_back(behaviour);
 	}
 	auto collider = dynamic_cast<Collider*>(comp);
@@ -70,7 +74,6 @@ void GameObject::AddComponent(Component* comp)
 		Game::ActiveScene->Colliders.push_back(collider);
 	}
 }
-
 
 
 void GameObject::RemoveComponent(const char* name)
@@ -95,3 +98,10 @@ void GameObject::Update()
 	}
 }
 
+void GameObject::Start()
+{
+	for (Behaviour* b : m_behaviours)
+	{
+		b->Start();
+	}
+}

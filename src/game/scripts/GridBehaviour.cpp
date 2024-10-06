@@ -6,6 +6,7 @@
 #include "../prefab/Castle.h"
 #include "../prefab/Creature.h"
 #include "../prefab/Obstacle.h"
+#include "../prefab/Anvil.h"
 
 void GridBehaviour::Start() {
     for (int i = -5; i < 6; i++)
@@ -16,9 +17,12 @@ void GridBehaviour::Start() {
         }
     }
 
-    createObjectAtTile<Castle>(0, 0);
-    createObjectAtTile<Creature>(1, 1);
-    createObjectAtTile<Obstacle>(-2, -2);
+    CreateObjectAtTile<Castle>(0, 0);
+    CreateObjectAtTile<Creature>(1, 1);
+    CreateObjectAtTile<Obstacle>(-2, -2);
+
+    std::cout << "Creating anvil" << std::endl;
+    CreateObjectAtTile<Anvil>(-3, -3);
 }
 
 void GridBehaviour::Update() {
@@ -28,7 +32,7 @@ void GridBehaviour::createTile(int x, int y)
 {
     m_tiles[x + 5][y + 5] = GameObject::Instantiate<Tile>({{(float)x, (float)y, 0.0}, 
         {1.0, 1.0, 1.0}, 
-        {0.0, 0.0, 0.0}})->GetComponent<TileBehaviour>();
+        {0.0, 0.0, 0.0}}, gameObject->Transform)->GetComponent<TileBehaviour>();
     m_tiles[x + 5][y + 5]->Initialize(x + 5, y + 5, this);
 }
 
