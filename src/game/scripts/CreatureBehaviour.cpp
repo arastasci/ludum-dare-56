@@ -86,7 +86,3 @@ void CreatureBehaviour::OnGridChanged()
 {
     FindNearestTarget();
 }
-
-void CreatureBehaviour::OnDestroy() {
-    std::cout << "CreatureBehaviour OnDestroy" << std::endl;
-}

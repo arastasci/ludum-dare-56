@@ -7,7 +7,6 @@
 #include "../prefab/Creature.h"
 #include "../prefab/Obstacle.h"
 #include "../prefab/Anvil.h"
-
 void GridBehaviour::Awake()
 {
     for (int i = 0; i < 11; i++)
@@ -83,4 +82,10 @@ void GridBehaviour::OnGridChanged()
     {
         agent->OnGridChanged();
     }
+}
+
+void GridBehaviour::RemoveAgent(AgentBehaviour* a)
+{
+    // erase from m_agents
+    m_agents.erase(std::remove(m_agents.begin(), m_agents.end(), a), m_agents.end());
 }
