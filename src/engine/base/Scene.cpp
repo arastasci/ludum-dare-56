@@ -6,26 +6,53 @@
 #include "../physics/screen_raycast_handler.h"
 Scene::Scene()
 {
-	GameObjects = std::vector<GameObject*>(GAMEOBJECT_COUNT);
+	GameObjects = std::vector<GameObject *>(GAMEOBJECT_COUNT);
 }
 
 void Scene::Update()
 {
-	ScreenRaycastHandler::GetInstance().Colliders = &Colliders;
-	for (int i = 0; i < GameObjects.size(); i++)
+	// Start gameobjects
+	std::vector<GameObject *> m_awaitingToStartPrev = m_awaitingToStart;
+	m_awaitingToStart = std::vector<GameObject *>();
+
+	for (auto go : m_awaitingToStartPrev)
 	{
-		if(GameObjects[i] != nullptr)
+		bool added = false;
+		for (int i = 0; i < GameObjects.size(); i++)
+		{
+			if (GameObjects[i] == nullptr)
+			{
+				GameObjects[i] = go;
+				added = true;
+			}
+		}
+
+		if(!added)
+			GameObjects.push_back(go);
+
+		go->Start();
+	}
+
+	ScreenRaycastHandler::GetInstance().Colliders = &Colliders;
+	auto gameObjectsSize = GameObjects.size();
+	for (int i = 0; i < gameObjectsSize; i++)
+	{
+		if (GameObjects[i] != nullptr)
 			GameObjects[i]->Update();
 	}
 	// TODO: remove destroyed objects or replace them when adding
-	for (auto go : GameObjects)
+	for (int i = 0; i < gameObjectsSize ; i++)
 	{
+		auto go = GameObjects[i];
 		if (go != nullptr && go->GetWillBeDestroyed())
 		{
 			go->DestroyImmediate();
-			free(go);
+			delete go;
+			GameObjects[i] = nullptr;
 		}
+
 	}
+
 	// destroy objects
 	// for renderers, render
 
@@ -35,24 +62,17 @@ void Scene::Update()
 		if (go != nullptr)
 		{
 			// If gameobject has a renderinfo, render it
-			RenderProperties* info = go->GetComponent<RenderProperties>();
+			RenderProperties *info = go->GetComponent<RenderProperties>();
 
-			if (info != nullptr){
+			if (info != nullptr)
+			{
 				renderer->Render(info, go->Transform);
 			}
 		}
 	}
 }
 
-void Scene::AddGameObject(GameObject* go)
+void Scene::AddGameObject(GameObject *go)
 {
-	for (int i = 0; i < GameObjects.size(); i++)
-	{
-		if (GameObjects[i] == nullptr)
-		{
-			GameObjects[i] = go;
-			return;
-		}
-	}
-	GameObjects.push_back(go);
+	m_awaitingToStart.push_back(go);
 }

@@ -21,9 +21,5 @@ public:
     void Update() {};
     void OnDestroy(){};
 
-    virtual void Initialize(TileBehaviour* parentTile, GridBehaviour* gridBehaviour);
-
-    TileBehaviour *ParentTile;
-    GridBehaviour* gridBehaviour;
     GridObjectType Type;
 };

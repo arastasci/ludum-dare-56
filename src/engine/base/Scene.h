@@ -15,4 +15,8 @@ public:
 	void AddGameObject(GameObject* go);
 	std::vector<GameObject*> GameObjects;
 	std::vector<Collider*> Colliders;
+
+private:
+	std::vector<GameObject*> m_awaitingToStart;
+	void startGameObject(GameObject* go);
 };

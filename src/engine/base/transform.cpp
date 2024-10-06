@@ -30,10 +30,20 @@ void transform::DestroyImmediate()
 		child->gameObject->DestroyImmediate();
 	}
 	m_children.clear();
+
+	if(parent != nullptr)
+	{
+		parent->m_children.erase(std::remove(parent->m_children.begin(), parent->m_children.end(), this), parent->m_children.end());
+	}
 }
 
 void transform::AddChild(transform* child)
 {
+	if(child->parent != nullptr)
+	{
+		child->parent->m_children.erase(std::remove(child->parent->m_children.begin(), child->parent->m_children.end(), child), child->parent->m_children.end());
+	}
+
 	m_children.push_back(child);
 	child->parent = this;
 }
@@ -52,4 +62,3 @@ transform* transform::GetParent()
 {
 	return parent;
 }
-
