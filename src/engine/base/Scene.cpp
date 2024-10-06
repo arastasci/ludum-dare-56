@@ -24,6 +24,7 @@ void Scene::Update()
 			{
 				GameObjects[i] = go;
 				added = true;
+				break;
 			}
 		}
 
