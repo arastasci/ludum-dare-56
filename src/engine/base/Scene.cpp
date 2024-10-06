@@ -48,7 +48,7 @@ void Scene::Update()
 	auto gameObjectsSize = GameObjects.size();
 	for (int i = 0; i < gameObjectsSize; i++)
 	{
-		if (GameObjects[i] != nullptr)
+		if (GameObjects[i] != nullptr && !GameObjects[i]->GetWillBeDestroyed())
 			GameObjects[i]->Update();
 	}
 	// TODO: remove destroyed objects or replace them when adding
