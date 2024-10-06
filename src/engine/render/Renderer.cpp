@@ -58,8 +58,8 @@ void Renderer::initBuffer(RenderProperties *info, transform* t){
     float dx = 1.0 / TEXTURE_ATLAS_TILE_WIDTH;
     float dy = 1.0 / TEXTURE_ATLAS_TILE_HEIGHT;
 
-    float topLeftX = info->TextureCoords.first * dx;
-    float topLeftY = info->TextureCoords.second * dy;
+    float topLeftX = info->GetTextureCoords().first * dx;
+    float topLeftY = info->GetTextureCoords().second * dy;
 
     std::vector<float> tex_vertices = {
         topLeftX, topLeftY, // 0.0f, 1.0f, // top left
@@ -71,8 +71,14 @@ void Renderer::initBuffer(RenderProperties *info, transform* t){
         topLeftX, topLeftY + dy, // 0.0f, 0.0f, // bottom left
         topLeftX, topLeftY// 0.0f, 1.0f, // top left
     };
+    
+    if(!info->CheckHasBuffer()){
+        glGenBuffers(1, &(info->VBO));
+        glGenBuffers(1, &(info->VBO_tex));
 
-    glGenBuffers(1, &(info->VBO));
+        info->MarkHasBuffer();
+    }
+    
     glBindBuffer(GL_ARRAY_BUFFER, info->VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * (RenderProperties::Vertices.size()), RenderProperties::Vertices.data(), GL_STATIC_DRAW); 
 
@@ -82,26 +88,26 @@ void Renderer::initBuffer(RenderProperties *info, transform* t){
     glEnableVertexAttribArray(0);
 
     // Texture coordinates
-    glGenBuffers(1, &(info->VBO_tex));
     glBindBuffer(GL_ARRAY_BUFFER, info->VBO_tex);
     glBufferData(GL_ARRAY_BUFFER, tex_vertices.size() * sizeof(float), tex_vertices.data(), GL_STATIC_DRAW);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(1);
 
-    info->HasBuffer = true;
+    info->MarkAsUpdated();
 };
 
 void Renderer::Render(RenderProperties *info, transform* t){
-    if(!info->HasBuffer)
+    if(info->CheckRequiresUpdate()){
         initBuffer(info, t);
+    }
     
     glm::mat4 model = glm::mat4(1.0f);
 
-    model = glm::translate(model, glm::vec3(t->position.x, t->position.y, t->position.z));
+    model = glm::scale(model, glm::vec3(t->scale.x, t->scale.y, t->scale.z));
     model = glm::rotate(model, glm::radians(t->rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
     model = glm::rotate(model, glm::radians(t->rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
     model = glm::rotate(model, glm::radians(t->rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::scale(model, glm::vec3(t->scale.x, t->scale.y, t->scale.z));
+    model = glm::translate(model, glm::vec3(t->position.x, t->position.y, t->position.z));
 
     m_shader->setMat4("model", model);
 

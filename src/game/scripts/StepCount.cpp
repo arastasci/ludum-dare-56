@@ -15,10 +15,8 @@ void StepCount::Update()
 	{
 		gameObject->Transform->position.y += 1.f * Timer::getInstance().getDeltaTime();
 	}
-	if (MouseInput::getInstance().IsButtonPressed(GLFW_MOUSE_BUTTON_LEFT))
-	{
-		//GameObject->Transform->position.z += 0.01f;
-		auto mousePosition = MouseInput::getInstance().mousePosition;
-		ScreenRaycastHandler::GetInstance().Raycast(mousePosition.x, mousePosition.y);
-	}
+	
+	//GameObject->Transform->position.z += 0.01f;
+	auto mousePosition = MouseInput::getInstance().mousePosition;
+	ScreenRaycastHandler::GetInstance().Raycast(mousePosition.x, mousePosition.y);
 }

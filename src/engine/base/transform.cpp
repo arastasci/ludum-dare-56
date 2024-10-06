@@ -6,6 +6,14 @@ transform::transform() : Component("transform")
 	parent = nullptr;
 }
 
+transform::transform(Vector3 position, Vector3 scale, Vector3 rotation) : Component("transform")
+{
+	this->position = position;
+	this->scale = scale;
+	this->rotation = rotation;
+	parent = nullptr;
+}
+
 transform::~transform()
 {
 }

@@ -20,18 +20,27 @@ void GridBehaviour::Start() {
     }
 
     // Bu böyle olmayacak, tile coordinatı almalı ama uyumam gerek bunu sabah değiştirebiliriz.
-    transform castleTransform;
-    castleTransform.position = {4.0, 4.0, 0.0};
+    transform castleTransform = {
+        {4.0, 4.0, 0.0}, 
+        {1.0, 1.0, 1.0}, 
+        {0.0, 0.0, 0.0}
+    };
 
     this->createObjectAtTile<Castle>(castleTransform);
 
-    transform creatureTransform;
-    creatureTransform.position = {0.0, 0.0, 0.0};
+    transform creatureTransform = {
+        {-4.0, -4.0, 0.0}, 
+        {1.0, 1.0, 1.0}, 
+        {0.0, 0.0, 0.0}
+    };
 
     this->createObjectAtTile<Creature>(creatureTransform);
 
-    transform obstacleTransform;
-    obstacleTransform.position = {2.0, 2.0, 0.0};
+    transform obstacleTransform = {
+        {0.0, 0.0, 0.0}, 
+        {0.9f, 0.9f, 1.0f}, 
+        {0.0, 0.0, 0.0}
+    };
     this->createObjectAtTile<Obstacle>(obstacleTransform);
 }
 
