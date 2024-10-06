@@ -97,6 +97,8 @@ void Renderer::initBuffer(RenderProperties *info, transform* t){
 };
 
 void Renderer::Render(RenderProperties *info, transform* t){
+    if (!info->IsEnabled())
+        return;
     if(info->CheckRequiresUpdate()){
         initBuffer(info, t);
     }

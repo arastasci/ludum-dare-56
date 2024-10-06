@@ -74,7 +74,7 @@ void GameManagerBehaviour::decreaseLife()
 {
 	if (m_livesUI.size() > 0)
 	{
-		m_livesUI[m_livesUI.size() - 1]->Destroy();
+		m_livesUI[m_livesUI.size() - 1]->GetComponent<LifeBehaviour>()->Dispose();
 		m_livesUI.pop_back();
 	}
 }
