@@ -116,3 +116,8 @@ void GameObject::Start()
 		b->Start();
 	}
 }
+
+std::vector<Component*> GameObject::GetComponents()
+{
+	return m_components;
+}

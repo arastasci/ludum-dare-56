@@ -23,8 +23,10 @@ public:
 
     void MarkAsUpdated();
     void MarkHasBuffer();
-
+    void SetIsEnabled(bool value);
+    bool IsEnabled();
 private:
+    bool m_isEnabled = true;
     bool m_requiresUpdate = true;
     bool m_hasBuffer = false;
     std::pair<float, float> m_textureCoords = {0, 0};

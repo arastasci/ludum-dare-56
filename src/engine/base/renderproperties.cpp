@@ -45,3 +45,13 @@ void RenderProperties::MarkHasBuffer()
 {
     m_hasBuffer = true;
 }
+
+void RenderProperties::SetIsEnabled(bool value)
+{
+    m_isEnabled = value;
+}
+
+bool RenderProperties::IsEnabled()
+{
+    return m_isEnabled;
+}

@@ -62,6 +62,7 @@ public:
 	void Update();
 	void Awake();
 	void Start();
+	std::vector<Component*> GetComponents();
 
 	transform* Transform;
 	Scene* Scene;

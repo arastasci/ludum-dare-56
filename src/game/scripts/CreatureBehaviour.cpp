@@ -59,6 +59,11 @@ void CreatureBehaviour::Move(int x, int y) {
     this->gameObject->Transform->position = parentTile->gameObject->Transform->position;
     m_isMovingAnimation = true;
     m_startedMovingAt = Timer::getInstance().getElapsedTime();
+
+    if (parentTile->GetObjectsByType(GridObjectType::Target).size() != 0)
+    {
+        GameManagerBehaviour::GetInstance()->OnEnemyReachedTarget();
+    }
 }
 
 void CreatureBehaviour::FindNearestTarget()
