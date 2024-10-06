@@ -41,17 +41,20 @@ void TileBehaviour::Update() {
 void TileBehaviour::OnRaycastHit() {
     m_hovering = true;
 }
+
 void TileBehaviour::Initialize(int x, int y, GridBehaviour* gridBehaviour)
 {
     this->x = x;
 	this->y = y;
 	this->gridBehaviour = gridBehaviour;
 }
+
 void TileBehaviour::RemoveGridObject(GridObjectBehaviour* gridObject)
 {
 	gridObjects.erase(std::remove(gridObjects.begin(), gridObjects.end(), gridObject), gridObjects.end());
 
 }
+
 void TileBehaviour::AddGridObject(GridObjectBehaviour* gridObject)
 {
     gridObjects.push_back(gridObject);
@@ -60,4 +63,9 @@ void TileBehaviour::AddGridObject(GridObjectBehaviour* gridObject)
 TileBehaviour* TileBehaviour::GetNeighbour(int x, int y)
 {
     return gridBehaviour->GetTileAt(this->x + x, this->y + y);
+}
+
+bool TileBehaviour::IsWalkable()
+{
+    return true;
 }
