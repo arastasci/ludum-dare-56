@@ -66,7 +66,7 @@ void CreatureBehaviour::FindNearestTarget()
     std::vector<std::vector<std::pair<int, int>>> paths;
     for (auto target : targets)
     {
-        paths.push_back(pathFinder->FindPath({ parentTile->x , parentTile->y }, targets[0]));
+        paths.push_back(pathFinder->FindPath({ parentTile->x , parentTile->y }, target));
     }
     int min = INT_MAX;
     int index = -1;
@@ -80,6 +80,11 @@ void CreatureBehaviour::FindNearestTarget()
 	}
 
     pathFinder->currentPath = paths[index];
+}
+
+void CreatureBehaviour::OnGridChanged()
+{
+    FindNearestTarget();
 }
 
 void CreatureBehaviour::OnDestroy() {

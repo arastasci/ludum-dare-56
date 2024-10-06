@@ -4,7 +4,9 @@
 #include "../../engine/base/gameobject.h"
 #include "../prefab/Tile.h"
 #include "GridObjectBehaviour.h"
+#include "AgentBehaviour.h"
 #include <vector>
+
 class GridBehaviour : public Behaviour {
     public:
         GridBehaviour() : Behaviour("GridBehaviour") {};
@@ -14,6 +16,7 @@ class GridBehaviour : public Behaviour {
         void OnDestroy();
         TileBehaviour* GetTileAt(int x, int y);
         std::vector <std::pair<int, int>> GetTargetTiles();
+        void OnGridChanged();
         template <typename T,typename = std::enable_if_t<std::is_base_of_v<GameObject, T>>>
         T* CreateObjectAtTile(int x, int y)
         {
@@ -28,11 +31,27 @@ class GridBehaviour : public Behaviour {
             auto gridObjectBehaviour  = static_cast<GameObject*>(go)->GetComponent<GridObjectBehaviour>();
 
             m_tiles[x][y]->AddGridObject(gridObjectBehaviour);
-
+            if (gridObjectBehaviour->Type == GridObjectType::Agent)
+            {
+                auto agent = gridObjectBehaviour->gameObject->GetComponent<AgentBehaviour>();
+                if (agent == nullptr)
+                {
+					std::cout << "Agents should have an agent behaviour!" << std::endl;
+                }
+				else
+				{
+					m_agents.push_back(agent);
+				}
+            }
+            if (gridObjectBehaviour->Type == GridObjectType::Obstacle)
+            {
+                OnGridChanged();
+            }
             return go;
         }
 
     private:
+        std::vector<AgentBehaviour*> m_agents;
         TileBehaviour* m_tiles[11][11];
 
         void createTile(int x, int y);

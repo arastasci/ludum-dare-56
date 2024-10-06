@@ -52,7 +52,7 @@ void Scene::Update()
 			GameObjects[i]->Update();
 	}
 	// TODO: remove destroyed objects or replace them when adding
-	for (int i = 0; i < gameObjectsSize ; i++)
+	for (int i = 0; i < gameObjectsSize; i++)
 	{
 		auto go = GameObjects[i];
 		if (go != nullptr && go->GetWillBeDestroyed())

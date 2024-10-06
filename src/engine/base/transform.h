@@ -12,6 +12,7 @@ public:
 	void DestroyImmediate() override;
 	int GetChildrenCount();
 	transform* GetParent();
+	void SetParent(transform* t);
 	transform* GetChild(int index);
 	void AddChild(transform* child);
 

@@ -1,12 +1,13 @@
 #pragma once
-#include "GridObjectBehaviour.h"
+#include "AgentBehaviour.h"
 #include "PathFinderBehaviour.h"
-class CreatureBehaviour : public GridObjectBehaviour {
+class CreatureBehaviour : public AgentBehaviour {
     public:
-        CreatureBehaviour() :  GridObjectBehaviour("CreatureBehaviour", GridObjectType::Agent) {};
+        CreatureBehaviour() :  AgentBehaviour("CreatureBehaviour") {};
         void Start();
         void Update();
         void OnDestroy();
+        void OnGridChanged() override;
         void Move(int x, int y);
         void FindNearestTarget();
         PathFinderBehaviour* pathFinder;

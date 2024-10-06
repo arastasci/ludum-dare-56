@@ -15,10 +15,10 @@ public:
 	void RemoveScene(Scene* scene);
 	void Update();
 	static Scene* ActiveScene;
+	bool m_awakened;
 private:
 	static Game* instance;
 	ScreenRaycastHandler* m_raycastHandler;
-	bool m_awakened;
 	std::vector<Scene*> m_scenes;
 	Timer* m_timer;
 	

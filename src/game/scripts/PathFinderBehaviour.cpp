@@ -12,6 +12,10 @@ void PathFinderBehaviour::Start()
 }
 
 
+void PathFinderBehaviour::OnGridChanged()
+{
+}
+
 std::vector<std::pair<int,int>> PathFinderBehaviour::FindPath(std::pair<int, int> start, std::pair<int, int> goal)
 {
     currentNodeIndex = 0;
@@ -28,8 +32,11 @@ struct Node {
     int gCost, hCost;
     Node* parent;
 
-    Node(int x, int y, int gCost = 0, int hCost = 0, Node* parent = nullptr)
-        : x(x), y(y), gCost(gCost), hCost(hCost), parent(parent) {}
+    Node(int x, int y, vector<Node*>& nodes, int gCost = 0, int hCost = 0, Node* parent = nullptr)
+        : x(x), y(y), gCost(gCost), hCost(hCost), parent(parent) 
+    {
+        nodes.push_back(this);
+    }
 
     int fCost() const {
         return gCost + hCost;
@@ -48,7 +55,7 @@ int manhattanDistance(int x1, int y1, int x2, int y2) {
 
 // Check if a position is within the grid and walkable
 bool isValid(int x, int y, TileBehaviour* tileBehaviour) {
-    return x >= 0 && x < 11 && y >= 0 && y < 11 && tileBehaviour != nullptr && tileBehaviour->IsWalkable() ;
+    return tileBehaviour != nullptr && tileBehaviour->IsWalkable();
 }
 
 // A* algorithm
@@ -56,27 +63,30 @@ vector<pair<int, int>> PathFinderBehaviour::aStar( TileBehaviour* startTile, pai
     int rows = 11;
     int cols = 11;
     vector<vector<bool>> visited(rows, vector<bool>(cols, false));
-    priority_queue<Node> openList;
+    priority_queue<Node*> openList;
 
-    Node* startNode = new Node(start.first, start.second);
+    vector<Node*> nodes;
+    Node* startNode = new Node(start.first, start.second, nodes);
     startNode->hCost = manhattanDistance(start.first, start.second, goal.first, goal.second);
-    openList.push(*startNode);
+    openList.push(startNode);
 
     vector<pair<int, int>> directions = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };
-
     while (!openList.empty()) {
-        Node currentNode = openList.top();
+
+        Node* currentNode = openList.top();
         openList.pop();
 
-        int x = currentNode.x;
-        int y = currentNode.y;
+        int x = currentNode->x;
+        int y = currentNode->y;
 
         if (x == goal.first && y == goal.second) {
             vector<pair<int, int>> path;
-            Node* temp = &currentNode;
+            Node* temp = currentNode;
             while (temp) {
                 path.emplace_back(temp->x, temp->y);
+                auto t = temp;
                 temp = temp->parent;
+                delete t;
             }
             reverse(path.begin(), path.end());
             return path;
@@ -93,14 +103,14 @@ vector<pair<int, int>> PathFinderBehaviour::aStar( TileBehaviour* startTile, pai
             auto currentTile = startTile->GetNeighbour(dir.first, dir.second);
 
             if (isValid(newX, newY, currentTile) && !visited[newX][newY]) {
-                int newGCost = currentNode.gCost + 1;
+                int newGCost = currentNode->gCost + 1;
                 int newHCost = manhattanDistance(newX, newY, goal.first, goal.second);
-                Node* neighbor = new Node(newX, newY, newGCost, newHCost, new Node(currentNode));
-                openList.push(*neighbor);
+                Node* neighbor = new Node(newX, newY, nodes, newGCost, newHCost, currentNode);
+                openList.push(neighbor);
             }
         }
     }
-
+    for (auto node : nodes) delete node;
     // Return an empty path if no path is found
     return {};
 }

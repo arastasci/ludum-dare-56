@@ -75,11 +75,13 @@ void TileBehaviour::Initialize(int x, int y, GridBehaviour* gridBehaviour)
 void TileBehaviour::RemoveGridObject(GridObjectBehaviour* gridObject)
 {
 	gridObjects.erase(std::remove(gridObjects.begin(), gridObjects.end(), gridObject), gridObjects.end());
+	gridObject->gameObject->Transform->SetParent(nullptr);
 }
 
 void TileBehaviour::AddGridObject(GridObjectBehaviour* gridObject)
 {
     gridObjects.push_back(gridObject);
+    gridObject->gameObject->Transform->SetParent(this->gameObject->Transform);
 }
 
 TileBehaviour* TileBehaviour::GetNeighbour(int x, int y)
@@ -90,7 +92,7 @@ TileBehaviour* TileBehaviour::GetNeighbour(int x, int y)
     {
 		return nullptr;
 	}
-    return gridBehaviour->GetTileAt(this->x + x, this->y + y);
+    return gridBehaviour->GetTileAt(newX, newY);
 }
 
 bool TileBehaviour::IsWalkable()

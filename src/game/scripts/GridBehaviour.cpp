@@ -18,9 +18,18 @@ void GridBehaviour::Awake()
         }
     }
 
-    CreateObjectAtTile<Castle>(9,9);
+    CreateObjectAtTile<Castle>(1,6);
     CreateObjectAtTile<Creature>(10, 10);
     CreateObjectAtTile<Obstacle>(2, 2);
+    CreateObjectAtTile<Obstacle>(8, 8);
+    CreateObjectAtTile<Obstacle>(8, 7);
+    CreateObjectAtTile<Obstacle>(8, 6);
+    CreateObjectAtTile<Obstacle>(8, 5);
+    CreateObjectAtTile<Obstacle>(8, 4);
+    CreateObjectAtTile<Obstacle>(8, 3);
+    CreateObjectAtTile<Obstacle>(8, 2);
+    CreateObjectAtTile<Obstacle>(8, 9);
+    CreateObjectAtTile<Obstacle>(8, 10);
 
     std::cout << "Creating anvil" << std::endl;
     CreateObjectAtTile<Anvil>(3, 3);
@@ -64,4 +73,14 @@ std::vector<std::pair<int, int>> GridBehaviour::GetTargetTiles()
 		}
 	}
     return targetTiles;
+}
+
+void GridBehaviour::OnGridChanged()
+{
+    if (!Game::GetInstance()->m_awakened)
+        return;
+    for (auto agent : m_agents)
+    {
+        agent->OnGridChanged();
+    }
 }

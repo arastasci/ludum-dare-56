@@ -62,3 +62,14 @@ transform* transform::GetParent()
 {
 	return parent;
 }
+
+void transform::SetParent(transform* t)
+{
+	if (parent != nullptr)
+	{
+		parent->m_children.erase(std::remove(parent->m_children.begin(), parent->m_children.end(), this), parent->m_children.end());
+	}
+	parent = t;
+	if(t != nullptr)
+	t->AddChild(this);
+}
