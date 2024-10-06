@@ -4,7 +4,7 @@
 
 class AnvilBehaviour : public GridObjectBehaviour{
     public:
-        AnvilBehaviour() : GridObjectBehaviour("AnvilBehaviour", GridObjectType::Target) {};
+        AnvilBehaviour() : GridObjectBehaviour("AnvilBehaviour", GridObjectType::Trap) {};
         void Update();
         void Start();
 
