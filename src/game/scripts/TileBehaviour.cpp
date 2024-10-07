@@ -52,11 +52,16 @@ void TileBehaviour::Update() {
         }
         else if (KeyInput::getInstance().IsKeyPressed(GLFW_KEY_SPACE))
         {
-            transform anvil(*this->gameObject->Transform);
-            anvil.position.z = 1.2;
-            anvil.scale = { 0.7, 0.7, 0.7 };
+            if (gridBehaviour->GetTileAt(x, y)->GetObjectsByType(GridObjectType::Target).size() == 0)
+            {
+                transform anvil(*this->gameObject->Transform);
+                anvil.position.z = 1.2;
+                anvil.scale = { 0.7, 0.7, 0.7 };
 
-            gridBehaviour->CreateObjectAtTile<Anvil>(x, y, anvil);
+                gridBehaviour->CreateObjectAtTile<Anvil>(x, y, anvil);
+            }
+                
+            
         }
         else {
             rp->SetTextureCoords({0, 24});
