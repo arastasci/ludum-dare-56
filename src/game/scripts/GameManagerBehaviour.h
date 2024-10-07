@@ -24,12 +24,15 @@ public:
 	bool CanUseBomb();
 	double GetSledgehammerLastUsedAt();
 	double GetSledgehammerCooldownDuration();
-	
+	bool GetWonOrLost();
+	bool GetIsRunning();
 private:
 	int m_enemyCount = 0;
 	int m_lives = 3;
 	int m_anvils = 3;
 	int m_bombs = 1;
+	bool m_won;
+	bool m_isRunning = true;
 	std::vector<BombUI*> m_bombUIs;
 	std::vector<AnvilUI*> m_anvilUIs;
 	const double m_sledgehammerCooldownDuration = 3.f;

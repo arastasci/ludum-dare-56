@@ -28,7 +28,9 @@ void TileBehaviour::Start() {
 void TileBehaviour::Update() {
     // std::cout << "TileBehaviour Update" << std::endl;
     RenderProperties* rp = this->gameObject->GetComponent<RenderProperties>();
-    
+    if (!GameManagerBehaviour::GetInstance()->GetIsRunning())
+        return;
+
     if(m_hovering){
 
         if(MouseInput::getInstance().IsButtonPressed(0) && GameManagerBehaviour::GetInstance()->CanUseSledgehammer()){

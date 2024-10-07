@@ -4,6 +4,7 @@
 #include "AnvilUIBehaviour.h"
 #include "../prefab/SledgehammerUI.h"
 #include "BombUIBehaviour.h"
+#include "../prefab/GameEndUI.h"
 
 GameManagerBehaviour* GameManagerBehaviour::instance = nullptr;
 GameManagerBehaviour* GameManagerBehaviour::GetInstance()
@@ -138,8 +139,22 @@ double GameManagerBehaviour::GetSledgehammerCooldownDuration()
 	return m_sledgehammerCooldownDuration;
 }
 
+bool GameManagerBehaviour::GetWonOrLost()
+{
+	return m_won;
+}
+
+bool GameManagerBehaviour::GetIsRunning()
+{
+	return m_isRunning;
+}
+
 void GameManagerBehaviour::endGame(bool won)
 {
+	if (!m_isRunning)
+		return;
+
+	m_isRunning = false;
 	if (won)
 	{
 		std::cout << "You won!" << std::endl;
@@ -148,6 +163,14 @@ void GameManagerBehaviour::endGame(bool won)
 	{
 		std::cout << "You lost!" << std::endl;
 	}
+	auto* go = GameObject::Instantiate<GameEndUI>(
+		{
+			{5, 5, 0},
+			{2,2,2},
+			{0,0,0}
+		}
+	);
+	m_won = won;
 }
 
 void GameManagerBehaviour::decreaseLife()
