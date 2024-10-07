@@ -12,10 +12,11 @@ std::vector<float> RenderProperties::Vertices = {
 
 RenderProperties::RenderProperties(std::pair<float, float> TextureCoords) : Component("RenderProperties")
 {
+    material = new Material();
     this->SetTextureCoords(TextureCoords);
 }
 
-RenderProperties::RenderProperties(std::pair<float, float> TextureCoords, Material m) :
+RenderProperties::RenderProperties(std::pair<float, float> TextureCoords, Material* m) :
    RenderProperties( TextureCoords)
 {
     material = m;

@@ -19,7 +19,7 @@ protected:
     void initBuffer(RenderProperties *info, transform* t);
 
 public:
-    void ChangeShader(Shader* shader, Material& material);
+    void ChangeShader(Shader* shader, Material* material);
     void Initialize();
     Renderer(Renderer &other) = delete;
     void operator=(const Renderer &) = delete;

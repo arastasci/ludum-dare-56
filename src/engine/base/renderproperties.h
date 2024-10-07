@@ -12,7 +12,7 @@ class RenderProperties : public Component {
 public:
     RenderProperties(std::pair<float, float> TextureCoords);
 
-    RenderProperties(std::pair<float, float> TextureCoords, Material m);
+    RenderProperties(std::pair<float, float> TextureCoords, Material* m);
 
     GLuint VAO, VBO, EBO, VBO_tex;
     static std::vector<float> Vertices;
@@ -27,7 +27,7 @@ public:
     void MarkHasBuffer();
     void SetIsEnabled(bool value);
     bool IsEnabled();
-    Material material;
+    Material* material;
 private:
     
     bool m_isEnabled = true;

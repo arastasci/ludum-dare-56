@@ -91,22 +91,19 @@ void Renderer::initBuffer(RenderProperties *info, transform* t){
 
     info->MarkAsUpdated();
 }
-void Renderer::ChangeShader(Shader* shader, Material& material)
+void Renderer::ChangeShader(Shader* shader, Material* material)
 {
     m_currentShader = shader;
-    shader->use();
-    shader->setMat4("projection", glm::ortho(-ORTHO_WIDTH, ORTHO_WIDTH, -ORTHO_HEIGHT, ORTHO_HEIGHT, 0.1f, 100.f));
-    shader->setMat4("view", glm::lookAt(glm::vec3(5.0f, 5.0f, 3.0f), glm::vec3(5.0f, 5.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
-    shader->setMat4("model", glm::mat4(1.0f));
-    auto& fMap = material.floatMap;
-    for (auto it = fMap.begin(); it != fMap.end(); it++)
-    {
-        shader->setFloat((*it).first, (*it).second);
-    }
+    m_currentShader->use();
+    m_currentShader->setMat4("projection", glm::ortho(-ORTHO_WIDTH, ORTHO_WIDTH, -ORTHO_HEIGHT, ORTHO_HEIGHT, 0.1f, 100.f));
+    m_currentShader->setMat4("view", glm::lookAt(glm::vec3(5.0f, 5.0f, 3.0f), glm::vec3(5.0f, 5.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
+    m_currentShader->setMat4("model", glm::mat4(1.0f));
+    
 }
 void Renderer::Initialize()
 {
     m_shaders["DefaultShader"] = new Shader("src/engine/render/shader/vshader.glsl", "src/engine/render/shader/fshader.glsl");
+    m_shaders["FillShader"] = new Shader("src/engine/render/shader/v_fillshader.glsl", "src/engine/render/shader/f_fillshader.glsl");
 }
 
 
@@ -116,10 +113,15 @@ void Renderer::Render(RenderProperties *info, transform* t){
     if(info->CheckRequiresUpdate()){
         initBuffer(info, t);
     }
-    auto shaderName = info->material.shaderName;
+    auto shaderName = info->material->shaderName;
     if ( m_shaders[shaderName] != m_currentShader)
     {
         ChangeShader(m_shaders[shaderName], info->material);
+    }
+    auto& fMap = info-> material->floatMap;
+    for (auto it = fMap.begin(); it != fMap.end(); it++)
+    {
+        m_currentShader->setFloat((*it).first, (*it).second);
     }
     glm::mat4 model = glm::mat4(1.0f);
 

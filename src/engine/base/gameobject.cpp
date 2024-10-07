@@ -29,7 +29,6 @@ GameObject::GameObject(transform t, std::vector<Component*> components) : GameOb
 	{
 		this->AddComponent(c);
 	}
-	
 	Transform->gameObject = this;
 };
 

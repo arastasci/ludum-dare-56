@@ -16,6 +16,8 @@ public:
 	void OnSledgehammerUsed();
 
 	bool CanUseSledgehammer();
+	double GetSledgehammerLastUsedAt();
+	double GetSledgehammerCooldownDuration();
 private:
 	int m_enemyCount = 0;
 	int m_lives = 3;
