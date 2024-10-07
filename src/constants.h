@@ -1,4 +1,4 @@
-#define TEXTURE_ATLAS_PATH "src/engine/render/assets/textureatlas7.png"
+#define TEXTURE_ATLAS_PATH "res/assets/textureatlas7.png"
 #define TEXTURE_ATLAS_TILE_WIDTH 21
 #define TEXTURE_ATLAS_TILE_HEIGHT 26
 

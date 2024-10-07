@@ -105,8 +105,8 @@ void Renderer::ChangeShader(Shader* shader, Material* material)
 }
 void Renderer::Initialize()
 {
-    m_shaders["DefaultShader"] = new Shader("src/engine/render/shader/vshader.glsl", "src/engine/render/shader/fshader.glsl");
-    m_shaders["FillShader"] = new Shader("src/engine/render/shader/v_fillshader.glsl", "src/engine/render/shader/f_fillshader.glsl");
+    m_shaders["DefaultShader"] = new Shader("res/shader/vshader.glsl", "res/shader/fshader.glsl");
+    m_shaders["FillShader"] = new Shader("res/shader/v_fillshader.glsl", "res/shader/f_fillshader.glsl");
 }
 
 

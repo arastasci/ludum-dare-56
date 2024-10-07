@@ -87,6 +87,7 @@ void GameManagerBehaviour::OnEnemyReachedTarget()
 	{
 		endGame(false);
 	}
+	DecreaseEnemy();
 }
 
 void GameManagerBehaviour::OnSledgehammerUsed()

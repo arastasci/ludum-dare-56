@@ -50,7 +50,7 @@ void TileBehaviour::Update() {
 
             gridBehaviour->CreateObjectAtTile<Bomb>(x, y, bomb);
         }
-        else if (KeyInput::getInstance().IsKeyPressed(GLFW_KEY_R))
+        else if (KeyInput::getInstance().IsKeyPressed(GLFW_KEY_SPACE))
         {
             transform anvil(*this->gameObject->Transform);
             anvil.position.z = 1.2;

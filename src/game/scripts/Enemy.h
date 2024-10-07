@@ -12,7 +12,13 @@ public:
 	}
 	void OnDestroy() override
 	{
+		if(!willBeDisposed)
 		GameManagerBehaviour::GetInstance()->DecreaseEnemy();
 	}
+	void Dispose()
+	{
+		willBeDisposed = true;
+	}
+	bool willBeDisposed;
 
 };

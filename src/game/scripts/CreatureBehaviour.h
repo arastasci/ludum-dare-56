@@ -7,6 +7,7 @@ class CreatureBehaviour : public AgentBehaviour {
         void Start();
         void Update();
         void OnDestroy();
+        void Dispose();
         void OnGridChanged() override;
         void Move(int x, int y);
         void FindNearestTarget();

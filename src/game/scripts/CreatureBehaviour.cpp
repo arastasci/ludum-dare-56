@@ -65,6 +65,7 @@ void CreatureBehaviour::Move(int x, int y) {
     if (parentTile->GetObjectsByType(GridObjectType::Target).size() != 0)
     {
         GameManagerBehaviour::GetInstance()->OnEnemyReachedTarget();
+        gameObject->GetComponent<Enemy>()->Dispose();
     }
 }
 
@@ -106,4 +107,6 @@ void CreatureBehaviour::OnDestroy() {
         {0.0, 0.0, 0.0}
     });
 }
+
+
 
