@@ -57,6 +57,9 @@ void Renderer::initBuffer(RenderProperties *info, transform* t){
     float topLeftX = info->GetTextureCoords().first * dx;
     float topLeftY = info->GetTextureCoords().second * dy;
 
+    dx *= info->GetTextureSize().first;
+    dy *= info->GetTextureSize().second;
+    
     std::vector<float> tex_vertices = {
         topLeftX, topLeftY, // 0.0f, 1.0f, // top left
         topLeftX + dx, topLeftY, // 1.0f, 1.0f, // top right

@@ -5,13 +5,14 @@
 #include "../../engine/input/input.h"
 #include "../prefab/Tile.h"
 #include "../prefab/Anvil.h"
+#include "../prefab/Bomb.h"
 #include "../prefab/Sledgehammer.h"
 #include <tuple>
 #include "GridBehaviour.h"
 #include "GameManagerBehaviour.h"
 std::vector<std::pair<float, float>> TileBehaviour::textureCoords =  {
-        {0, 4},
-        {1, 4},
+        {0, 17},
+        {1, 17},
 };
 
 void TileBehaviour::Start() {
@@ -29,6 +30,7 @@ void TileBehaviour::Update() {
     RenderProperties* rp = this->gameObject->GetComponent<RenderProperties>();
     
     if(m_hovering){
+
         if(MouseInput::getInstance().IsButtonPressed(0) && GameManagerBehaviour::GetInstance()->CanUseSledgehammer()){
             transform hammer(*this->gameObject->Transform);
             hammer.position.z = 1.2;
@@ -108,5 +110,5 @@ TileBehaviour* TileBehaviour::GetNeighbour(int x, int y)
 
 bool TileBehaviour::IsWalkable()
 {
-    return GetObjectsByType(GridObjectType::Obstacle).size() == 0;
+    return (GetObjectsByType(GridObjectType::Obstacle).size() == 0) && (GetObjectsByType(GridObjectType::Trap).size() == 0);
 }

@@ -7,6 +7,8 @@
 #include "../prefab/Creature.h"
 #include "../prefab/Obstacle.h"
 #include "../prefab/Anvil.h"
+#include "../prefab/Explosion.h"
+
 void GridBehaviour::Awake()
 {
     for (int i = 0; i < 11; i++)

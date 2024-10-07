@@ -16,10 +16,17 @@ RenderProperties::RenderProperties(std::pair<float, float> TextureCoords) : Comp
     this->SetTextureCoords(TextureCoords);
 }
 
+
+RenderProperties::RenderProperties(std::pair<float, float> TextureCoords, std::pair<int, int> TextureSize) : Component("RenderProperties")
+{
+    this->SetTextureCoords(TextureCoords);
+    this->SetTextureSize(TextureSize);
+
 RenderProperties::RenderProperties(std::pair<float, float> TextureCoords, Material* m) :
    RenderProperties( TextureCoords)
 {
     material = m;
+
 }
 
 bool RenderProperties::CheckRequiresUpdate()
@@ -35,6 +42,17 @@ std::pair<float, float> RenderProperties::GetTextureCoords()
 void RenderProperties::SetTextureCoords(std::pair<float, float> coords)
 {
     m_textureCoords = coords;
+    m_requiresUpdate = true;
+}
+
+std::pair<int, int> RenderProperties::GetTextureSize()
+{
+    return m_textureSize;
+}
+
+void RenderProperties::SetTextureSize(std::pair<int, int> size)
+{
+    m_textureSize = size;
     m_requiresUpdate = true;
 }
 

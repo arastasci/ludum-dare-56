@@ -9,6 +9,6 @@ public:
     Particle(transform t) : GameObject(t,
                                        {
                                            new ParticleBehaviour(),
-                                           new RenderProperties(std::pair<float, float>(2.0f, 11.0f)),
+                                           new RenderProperties(std::pair<float, float>(2.0f, 24.0f)),
                                        }) {};
 };
