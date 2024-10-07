@@ -1,5 +1,6 @@
 #include "SledgehammerUIBehaviour.h"
 #include "../../engine/base/gameobject.h"
+#include "GameManagerBehaviour.h"
 void SledgehammerUIBehaviour::Start()
 {
 	m_info = gameObject->GetComponent<RenderProperties>();

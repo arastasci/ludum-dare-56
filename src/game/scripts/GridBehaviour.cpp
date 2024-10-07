@@ -33,9 +33,6 @@ void GridBehaviour::Awake()
     CreateObjectAtTile<Obstacle>(8, 2);
     CreateObjectAtTile<Obstacle>(8, 9);
     CreateObjectAtTile<Obstacle>(8, 10);
-
-    std::cout << "Creating anvil" << std::endl;
-    CreateObjectAtTile<Anvil>(3, 3);
 }
 
 void GridBehaviour::Start() {

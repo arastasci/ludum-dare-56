@@ -14,7 +14,6 @@
 #include "constants.h"
 #include "game/prefab/Grid.h"
 #include "engine/core/Window.h"
-#include "game/prefab/SledgehammerUI.h"
 int main()
 {
     if (!glfwInit())
@@ -47,12 +46,7 @@ int main()
 	game->Initialize();
 	
 	auto grid = GameObject::Instantiate<Grid>(transform());
-	GameObject::Instantiate<SledgehammerUI>(
-	{
-		{0, 12, 2 },
-		{1, 1, 1},
-		{0,0,0}
-	});
+	
 	grid->Awake();
 	game->Awake();
 	while (!window->ShouldClose())

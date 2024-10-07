@@ -10,12 +10,15 @@ double AnvilBehaviour::animationDuration = .2f;
 
 void AnvilBehaviour::Start() {
     std::cout << "AnvilBehaviour Start" << std::endl;
+    
+    GameManagerBehaviour::GetInstance()->OnAnvilUsed();
     m_createdAt = Timer::getInstance().getElapsedTime();
     m_landsTo = this->gameObject->Transform->position;
 
     auto tileBehaviour = gameObject->Transform->GetParent()->gameObject->GetComponent<TileBehaviour>();
 
     auto agents = tileBehaviour->GetObjectsByType(GridObjectType::Agent);
+    
 
     for(auto agent : agents) {
         if (agent->gameObject->GetComponent<Enemy>() != nullptr)

@@ -6,12 +6,31 @@
 
 double SledgehammerBehaviour::animationDuration = 0.2f;
 
-void SledgehammerBehaviour::Dispose()
+
+void SledgehammerBehaviour::Start()
 {
-    m_landedAt = Timer::getInstance().getElapsedTime();
-    this->gameObject->Transform->rotation.z = 180.f;
-    m_isFalling = false;
+    std::cout << "AnvilBehaviour Start" << std::endl;
+    GameManagerBehaviour::GetInstance()->OnSledgehammerUsed();
+
+
+    m_createdAt = Timer::getInstance().getElapsedTime();
+    m_landsTo = this->gameObject->Transform->position;
+    m_isFalling = true;
+
+    auto tileBehaviour = gameObject->Transform->GetParent()->gameObject->GetComponent<TileBehaviour>();
+
+    auto agents = tileBehaviour->GetObjectsByType(GridObjectType::Agent);
+
+    for (auto agent : agents) {
+        if (agent->gameObject->GetComponent<Enemy>() != nullptr)
+        {
+            tileBehaviour->RemoveGridObject(agent);
+            agent->gameObject->Destroy();
+        }
+
+    }
 }
+
 
 void SledgehammerBehaviour::Update() {
     if (m_isFalling)
@@ -38,4 +57,12 @@ void SledgehammerBehaviour::Update() {
         }
     }
    
+}
+
+
+void SledgehammerBehaviour::Dispose()
+{
+    m_landedAt = Timer::getInstance().getElapsedTime();
+    this->gameObject->Transform->rotation.z = 180.f;
+    m_isFalling = false;
 }

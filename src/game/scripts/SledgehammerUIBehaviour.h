@@ -1,7 +1,7 @@
 #pragma once
 #include "../../engine/base/behaviour.h"
 #include "../../engine/base/renderproperties.h"
-#include "GameManagerBehaviour.h"
+class GameManagerBehaviour;
 class SledgehammerUIBehaviour : public Behaviour
 {
 public:
