@@ -1,11 +1,12 @@
 #include "BombBehaviour.h"
 #include "../prefab/Explosion.h"
 #include "GridBehaviour.h"
-
+#include "GameManagerBehaviour.h"
 double BombBehaviour::m_duration = 3.0;
 
 void BombBehaviour::Start()
 {
+    GameManagerBehaviour::GetInstance()->OnBombUsed();
     m_startTime = Timer::getInstance().getElapsedTime();
 }
 

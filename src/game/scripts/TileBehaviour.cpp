@@ -43,7 +43,7 @@ void TileBehaviour::Update() {
         {
             transform bomb(*this->gameObject->Transform);
             bomb.position.z = 1.2;
-            bomb.rotation = { 0, 0, 45.f };
+            bomb.rotation = { 0, 0, 0 };
             bomb.scale = { 0.7, 0.7, 0.7 };
 
             gridBehaviour->CreateObjectAtTile<Bomb>(x, y, bomb);

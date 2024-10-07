@@ -3,6 +3,7 @@
 #include "GridBehaviour.h"
 #include "AnvilUIBehaviour.h"
 #include "../prefab/SledgehammerUI.h"
+#include "BombUIBehaviour.h"
 
 GameManagerBehaviour* GameManagerBehaviour::instance = nullptr;
 GameManagerBehaviour* GameManagerBehaviour::GetInstance()
@@ -28,7 +29,17 @@ void GameManagerBehaviour::Start()
 			{0,0,0}
 		});
 
-	for (int i = 0; i < m_lives; i++)
+	for (int i = 0; i < m_bombs; i++)
+	{
+		m_bombUIs.push_back(GameObject::Instantiate<BombUI>({
+			{ 10, -1.0, 2.0f },
+			{ 1, 1, 1},
+		{0, 0, 0} }
+		));
+
+	}
+
+	for (int i = 0; i < m_anvils; i++)
 	{
 		m_anvilUIs.push_back(GameObject::Instantiate<AnvilUI>({
 			{ 5.f + 4.0f * (i - 1) * 0.5f, -1.0, 2.0f },
@@ -92,6 +103,16 @@ void GameManagerBehaviour::OnAnvilUsed()
 	}
 }
 
+void GameManagerBehaviour::OnBombUsed()
+{
+	if (m_bombUIs.size() > 0)
+	{
+		m_bombs--;
+		m_bombUIs[m_bombUIs.size() - 1]->GetComponent<BombUIBehaviour>()->Dispose();
+		m_bombUIs.pop_back();
+	}
+}
+
 bool GameManagerBehaviour::CanUseSledgehammer()
 {
 	return Timer::getInstance().getElapsedTime() - m_sledgehammerLastUsedAt > m_sledgehammerCooldownDuration;
@@ -100,6 +121,11 @@ bool GameManagerBehaviour::CanUseSledgehammer()
 bool GameManagerBehaviour::CanUseAnvil()
 {
 	return m_anvils > 0;
+}
+
+bool GameManagerBehaviour::CanUseBomb()
+{
+	return m_bombs > 0;
 }
 
 double GameManagerBehaviour::GetSledgehammerLastUsedAt()
