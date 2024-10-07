@@ -35,7 +35,7 @@ void GameManagerBehaviour::Start()
 		m_bombUIs.push_back(GameObject::Instantiate<BombUI>({
 			{ 10, -1.0, 2.0f },
 			{ 1, 1, 1},
-		{0, 0, 0} }
+			{0, 0, 0} }
 		));
 
 	}
@@ -166,7 +166,7 @@ void GameManagerBehaviour::endGame(bool won)
 	}
 	auto* go = GameObject::Instantiate<GameEndUI>(
 		{
-			{5, 5, 0},
+			{5, 5, 2.2f},
 			{2,2,2},
 			{0,0,0}
 		}
