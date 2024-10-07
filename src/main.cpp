@@ -45,7 +45,8 @@ int main()
 	auto* game = Game::GetInstance();
 	game->Initialize();
 	
-	auto grid = GameObject::Instantiate<Grid>(transform{});
+	auto grid = GameObject::Instantiate<Grid>(transform());
+	
 	grid->Awake();
 	game->Awake();
 	while (!window->ShouldClose())

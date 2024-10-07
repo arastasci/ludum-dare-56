@@ -90,9 +90,13 @@ vector<pair<int, int>> PathFinderBehaviour::aStar( TileBehaviour* startTile, pai
                 temp = temp->parent;
                 delete t;
             }
-            reverse(path.begin(), --path.end());
-            
-            return path;
+            reverse(path.begin(), path.end());
+            std::vector<std::pair<int, int>> newPath(path.size() - 1);
+            for (auto i = 1; i < path.size(); i++)
+            {
+                newPath[i-1] = path[i];
+			}
+            return newPath;
         }
 
         visited[x][y] = true;

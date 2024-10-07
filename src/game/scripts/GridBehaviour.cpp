@@ -35,9 +35,6 @@ void GridBehaviour::Awake()
     CreateObjectAtTile<Obstacle>(8, 2);
     CreateObjectAtTile<Obstacle>(8, 9);
     CreateObjectAtTile<Obstacle>(8, 10);
-
-    std::cout << "Creating anvil" << std::endl;
-    CreateObjectAtTile<Anvil>(3, 3);
 }
 
 void GridBehaviour::Start() {
@@ -95,3 +92,4 @@ void GridBehaviour::RemoveAgent(AgentBehaviour* a)
     // erase from m_agents
     m_agents.erase(std::remove(m_agents.begin(), m_agents.end(), a), m_agents.end());
 }
+

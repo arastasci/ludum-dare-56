@@ -8,16 +8,19 @@
 #include "../base/transform.h"
 #include "shader.h"
 #include "../base/renderproperties.h"
-
+#include <unordered_map>
 class Renderer
 {
 protected:
     Renderer();
     static Renderer* instance;
-    Shader* m_shader;
-
+    Shader* m_currentShader;
+    std::unordered_map<std::string, Shader*> m_shaders;
     void initBuffer(RenderProperties *info, transform* t);
+
 public:
+    void ChangeShader(Shader* shader, Material* material);
+    void Initialize();
     Renderer(Renderer &other) = delete;
     void operator=(const Renderer &) = delete;
     

@@ -12,13 +12,21 @@ std::vector<float> RenderProperties::Vertices = {
 
 RenderProperties::RenderProperties(std::pair<float, float> TextureCoords) : Component("RenderProperties")
 {
+    material = new Material();
     this->SetTextureCoords(TextureCoords);
 }
+
 
 RenderProperties::RenderProperties(std::pair<float, float> TextureCoords, std::pair<int, int> TextureSize) : Component("RenderProperties")
 {
     this->SetTextureCoords(TextureCoords);
     this->SetTextureSize(TextureSize);
+
+RenderProperties::RenderProperties(std::pair<float, float> TextureCoords, Material* m) :
+   RenderProperties( TextureCoords)
+{
+    material = m;
+
 }
 
 bool RenderProperties::CheckRequiresUpdate()
@@ -61,4 +69,14 @@ bool RenderProperties::CheckHasBuffer()
 void RenderProperties::MarkHasBuffer()
 {
     m_hasBuffer = true;
+}
+
+void RenderProperties::SetIsEnabled(bool value)
+{
+    m_isEnabled = value;
+}
+
+bool RenderProperties::IsEnabled()
+{
+    return m_isEnabled;
 }

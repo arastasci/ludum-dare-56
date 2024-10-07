@@ -6,9 +6,10 @@
 #include "../prefab/Tile.h"
 #include "../prefab/Anvil.h"
 #include "../prefab/Bomb.h"
+#include "../prefab/Sledgehammer.h"
 #include <tuple>
 #include "GridBehaviour.h"
-
+#include "GameManagerBehaviour.h"
 std::vector<std::pair<float, float>> TileBehaviour::textureCoords =  {
         {0, 17},
         {1, 17},
@@ -29,14 +30,25 @@ void TileBehaviour::Update() {
     RenderProperties* rp = this->gameObject->GetComponent<RenderProperties>();
     
     if(m_hovering){
-        if(MouseInput::getInstance().IsButtonPressed(0)){
-            gridBehaviour->CreateObjectAtTile<Anvil>(x, y);
-        } else if(KeyInput::getInstance().IsKeyPressed(GLFW_KEY_F)){
-            gridBehaviour->CreateObjectAtTile<Bomb>(x, y);
+
+        if(MouseInput::getInstance().IsButtonPressed(0) && GameManagerBehaviour::GetInstance()->CanUseSledgehammer()){
+            transform hammer(*this->gameObject->Transform);
+            hammer.position.z = 1.2;
+            hammer.rotation = { 0, 0, 45.f };
+            hammer.scale = { 0.7, 0.7, 0.7 };
+
+            gridBehaviour->CreateObjectAtTile<Sledgehammer>(x, y, hammer);
         }
-        
+        else if (KeyInput::getInstance().IsKeyPressed(GLFW_KEY_R))
+        {
+            transform anvil(*this->gameObject->Transform);
+            anvil.position.z = 1.2;
+            anvil.scale = { 0.7, 0.7, 0.7 };
+
+            gridBehaviour->CreateObjectAtTile<Anvil>(x, y, anvil);
+        }
         else {
-            rp->SetTextureCoords({0, 24});
+            rp->SetTextureCoords({0, 11});
         }
     }
     else

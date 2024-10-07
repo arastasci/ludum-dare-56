@@ -4,6 +4,8 @@
 #include "gameobject.h"
 #include <iostream>
 #include "../physics/screen_raycast_handler.h"
+#include "../../game/scripts/SledgehammerBehaviour.h"
+#include "../../game/scripts/SledgehammerUIBehaviour.h"
 Scene::Scene()
 {
 	GameObjects = std::vector<GameObject *>(GAMEOBJECT_COUNT);
@@ -12,6 +14,7 @@ Scene::Scene()
 
 void Scene::Awake()
 {
+	Renderer::GetInstance()->Initialize();
 	for (auto go : m_awaitingToStart)
 	{
 		if (go != nullptr)
@@ -74,7 +77,10 @@ void Scene::Update()
 		{
 			// If gameobject has a renderinfo, render it
 			RenderProperties *info = go->GetComponent<RenderProperties>();
-
+			if (go->GetComponent<SledgehammerUIBehaviour>() != nullptr)
+			{
+				info = info;
+			}
 			if (info != nullptr)
 			{
 				renderer->Render(info, go->Transform);
