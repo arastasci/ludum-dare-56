@@ -22,7 +22,7 @@ void Window::CreateWindow(int width, int height)
 		return;
 	}
 
-	m_window = glfwCreateWindow(width, height, "Thigh-Knee-Creatures", NULL, NULL);
+	m_window = glfwCreateWindow(width, height, "Whiny Preachers", NULL, NULL);
 	if (!m_window)
 	{
 		glfwTerminate();
