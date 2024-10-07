@@ -8,7 +8,7 @@
 #include "../prefab/Sledgehammer.h"
 #include <tuple>
 #include "GridBehaviour.h"
-
+#include "GameManagerBehaviour.h"
 std::vector<std::pair<float, float>> TileBehaviour::textureCoords =  {
         {0, 4},
         {1, 4},
@@ -29,7 +29,7 @@ void TileBehaviour::Update() {
     RenderProperties* rp = this->gameObject->GetComponent<RenderProperties>();
     
     if(m_hovering){
-        if(MouseInput::getInstance().IsButtonPressed(0)){
+        if(MouseInput::getInstance().IsButtonPressed(0) && GameManagerBehaviour::GetInstance()->CanUseSledgehammer()){
             transform hammer(*this->gameObject->Transform);
             hammer.position.z = 1.2;
             hammer.rotation = { 0, 0, 45.f };

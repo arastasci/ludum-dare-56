@@ -58,6 +58,16 @@ void GameManagerBehaviour::OnEnemyReachedTarget()
 	}
 }
 
+void GameManagerBehaviour::OnSledgehammerUsed()
+{
+	m_sledgehammerLastUsedAt = Timer::getInstance().getElapsedTime();
+}
+
+bool GameManagerBehaviour::CanUseSledgehammer()
+{
+	return Timer::getInstance().getElapsedTime() - m_sledgehammerLastUsedAt > m_sledgehammerCooldownDuration;
+}
+
 void GameManagerBehaviour::endGame(bool won)
 {
 	if (won)

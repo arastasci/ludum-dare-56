@@ -13,9 +13,15 @@ public:
 	void IncreaseEnemy();
 	void DecreaseEnemy();
 	void OnEnemyReachedTarget();
+	void OnSledgehammerUsed();
+
+	bool CanUseSledgehammer();
 private:
 	int m_enemyCount = 0;
 	int m_lives = 3;
+
+	const double m_sledgehammerCooldownDuration = 3.f;
+	double m_sledgehammerLastUsedAt = -3.f;
 	static GameManagerBehaviour* instance;
 	std::vector<Life*> m_livesUI;
 	void endGame(bool won);

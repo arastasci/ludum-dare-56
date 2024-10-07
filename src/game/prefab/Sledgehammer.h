@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "../../engine/base/gameobject.h"
 #include "../../engine/base/renderproperties.h"
 #include "../scripts/SledgehammerBehaviour.h"
