@@ -22,8 +22,8 @@ class GridBehaviour : public Behaviour {
         {
             std::cout << "Creating object at tile" << std::endl;
             T* go = GameObject::Instantiate<T>({
-                {(float)x, (float)y, 0.0},
-                {0.7f, 0.7f, 0.7f},
+                {(float)x, (float)y, 1.0f},
+                {0.7f, 0.7f, 1.0f},
                 {0.0, 0.0, 0.0}},
                 m_tiles[x][y]->gameObject->Transform
             );

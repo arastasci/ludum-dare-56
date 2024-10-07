@@ -30,12 +30,12 @@ void TileBehaviour::Update() {
     
     if(m_hovering){
         if(MouseInput::getInstance().IsButtonPressed(0)){
-            transform anvil(*this->gameObject->Transform);
-            anvil.position.z = 1.2;
-            anvil.scale = {0.7, 0.7, 0.7};
-
+            gridBehaviour->CreateObjectAtTile<Anvil>(x, y);
+        } else if(KeyInput::getInstance().IsKeyPressed(GLFW_KEY_F)){
             gridBehaviour->CreateObjectAtTile<Bomb>(x, y);
-        } else {
+        }
+        
+        else {
             rp->SetTextureCoords({0, 24});
         }
     }
@@ -98,5 +98,5 @@ TileBehaviour* TileBehaviour::GetNeighbour(int x, int y)
 
 bool TileBehaviour::IsWalkable()
 {
-    return GetObjectsByType(GridObjectType::Obstacle).size() == 0;
+    return (GetObjectsByType(GridObjectType::Obstacle).size() == 0) && (GetObjectsByType(GridObjectType::Trap).size() == 0);
 }

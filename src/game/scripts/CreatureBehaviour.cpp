@@ -55,8 +55,10 @@ void CreatureBehaviour::Move(int x, int y) {
     nextParent->AddGridObject(this);
     parentTile = nextParent;
     m_startPosition = this->gameObject->Transform->position;
-    m_endPosition = parentTile->gameObject->Transform->position;
+    m_endPosition = {parentTile->gameObject->Transform->position.x , parentTile->gameObject->Transform->position.y, this->gameObject->Transform->position.z};
+    
     this->gameObject->Transform->position = parentTile->gameObject->Transform->position;
+
     m_isMovingAnimation = true;
     m_startedMovingAt = Timer::getInstance().getElapsedTime();
 }
@@ -94,7 +96,7 @@ void CreatureBehaviour::OnGridChanged()
 void CreatureBehaviour::OnDestroy() {
     AgentBehaviour::OnDestroy();
     GameObject::Instantiate<Particle>({
-        gameObject->Transform->position,
+        {gameObject->Transform->position.x, gameObject->Transform->position.y, 0.6f},
         {1.0, 1.0, 1.0},
         {0.0, 0.0, 0.0}
     });
