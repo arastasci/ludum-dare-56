@@ -17,10 +17,10 @@ RenderProperties::RenderProperties(std::pair<float, float> TextureCoords) : Comp
 }
 
 
-RenderProperties::RenderProperties(std::pair<float, float> TextureCoords, std::pair<int, int> TextureSize) : Component("RenderProperties")
+RenderProperties::RenderProperties(std::pair<float, float> TextureCoords, std::pair<int, int> TextureSize) : RenderProperties(TextureCoords)
 {
-    this->SetTextureCoords(TextureCoords);
     this->SetTextureSize(TextureSize);
+}
 
 RenderProperties::RenderProperties(std::pair<float, float> TextureCoords, Material* m) :
    RenderProperties( TextureCoords)

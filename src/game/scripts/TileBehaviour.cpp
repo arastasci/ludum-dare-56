@@ -39,6 +39,15 @@ void TileBehaviour::Update() {
 
             gridBehaviour->CreateObjectAtTile<Sledgehammer>(x, y, hammer);
         }
+        else if (KeyInput::getInstance().IsKeyPressed(GLFW_KEY_F))
+        {
+            transform bomb(*this->gameObject->Transform);
+            bomb.position.z = 1.2;
+            bomb.rotation = { 0, 0, 45.f };
+            bomb.scale = { 0.7, 0.7, 0.7 };
+
+            gridBehaviour->CreateObjectAtTile<Bomb>(x, y, bomb);
+        }
         else if (KeyInput::getInstance().IsKeyPressed(GLFW_KEY_R))
         {
             transform anvil(*this->gameObject->Transform);
@@ -48,7 +57,7 @@ void TileBehaviour::Update() {
             gridBehaviour->CreateObjectAtTile<Anvil>(x, y, anvil);
         }
         else {
-            rp->SetTextureCoords({0, 11});
+            rp->SetTextureCoords({0, 24});
         }
     }
     else

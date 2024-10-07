@@ -6,7 +6,7 @@ class AnvilUI : public GameObject
 {
 public:
     AnvilUI(transform t) : GameObject(t,
-        { new RenderProperties(std::pair<float, float>(2.0f, 6.0f), new Material()),
+        { new RenderProperties(std::pair<float, float>(2.0f, 19.0f), new Material()),
           new AnvilUIBehaviour(),
         }
     ) {};

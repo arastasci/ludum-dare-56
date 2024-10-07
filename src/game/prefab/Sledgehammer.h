@@ -7,7 +7,7 @@ class Sledgehammer : public GameObject
 {
 public:
     Sledgehammer(transform t) : GameObject(t,
-        { new RenderProperties(std::pair<float, float>(9.0f,9.0f)),
+        { new RenderProperties(std::pair<float, float>(9.0f,22.0f)),
          new SledgehammerBehaviour(),
         }
     ) {};
