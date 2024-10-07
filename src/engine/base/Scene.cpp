@@ -13,6 +13,7 @@ Scene::Scene()
 
 void Scene::Awake()
 {
+	Renderer::GetInstance()->Initialize();
 	for (auto go : m_awaitingToStart)
 	{
 		if (go != nullptr)

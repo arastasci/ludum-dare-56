@@ -47,7 +47,6 @@ void SledgehammerBehaviour::Update() {
         float landY = m_landsTo.y;
         this->gameObject->Transform->position.y = 1 + landY - easeInBounce(t);
 
-
         this->gameObject->Transform->rotation.z = m_initialRotation + (m_targetRotation - m_initialRotation) * t;
     }
     else

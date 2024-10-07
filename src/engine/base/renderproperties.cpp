@@ -15,6 +15,12 @@ RenderProperties::RenderProperties(std::pair<float, float> TextureCoords) : Comp
     this->SetTextureCoords(TextureCoords);
 }
 
+RenderProperties::RenderProperties(std::pair<float, float> TextureCoords, Material m) :
+   RenderProperties( TextureCoords)
+{
+    material = m;
+}
+
 bool RenderProperties::CheckRequiresUpdate()
 {
     return m_requiresUpdate;

@@ -3,14 +3,10 @@
 #include "../base/renderproperties.h"
 #include "../../constants.h"
 #include <iostream>
-
+class Material;
 Renderer::Renderer(){
-    m_shader = new Shader("src/engine/render/shader/vshader.glsl", "src/engine/render/shader/fshader.glsl");
-    m_shader->use();
     auto aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
-    m_shader->setMat4("projection", glm::ortho(-ORTHO_WIDTH, ORTHO_WIDTH, -ORTHO_HEIGHT, ORTHO_HEIGHT, 0.1f, 100.f));
-    m_shader->setMat4("view", glm::lookAt(glm::vec3(5.0f, 5.0f, 3.0f), glm::vec3(5.0f, 5.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
-    m_shader->setMat4("model", glm::mat4(1.0f));
+    
 
     GLuint texture;
 	glGenTextures(1, &texture);
@@ -94,7 +90,25 @@ void Renderer::initBuffer(RenderProperties *info, transform* t){
     glEnableVertexAttribArray(1);
 
     info->MarkAsUpdated();
-};
+}
+void Renderer::ChangeShader(Shader* shader, Material& material)
+{
+    m_currentShader = shader;
+    shader->use();
+    shader->setMat4("projection", glm::ortho(-ORTHO_WIDTH, ORTHO_WIDTH, -ORTHO_HEIGHT, ORTHO_HEIGHT, 0.1f, 100.f));
+    shader->setMat4("view", glm::lookAt(glm::vec3(5.0f, 5.0f, 3.0f), glm::vec3(5.0f, 5.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
+    shader->setMat4("model", glm::mat4(1.0f));
+    auto& fMap = material.floatMap;
+    for (auto it = fMap.begin(); it != fMap.end(); it++)
+    {
+        shader->setFloat((*it).first, (*it).second);
+    }
+}
+void Renderer::Initialize()
+{
+    m_shaders["DefaultShader"] = new Shader("src/engine/render/shader/vshader.glsl", "src/engine/render/shader/fshader.glsl");
+}
+
 
 void Renderer::Render(RenderProperties *info, transform* t){
     if (!info->IsEnabled())
@@ -102,7 +116,11 @@ void Renderer::Render(RenderProperties *info, transform* t){
     if(info->CheckRequiresUpdate()){
         initBuffer(info, t);
     }
-    
+    auto shaderName = info->material.shaderName;
+    if ( m_shaders[shaderName] != m_currentShader)
+    {
+        ChangeShader(m_shaders[shaderName], info->material);
+    }
     glm::mat4 model = glm::mat4(1.0f);
 
     model = glm::translate(model, glm::vec3(t->position.x, t->position.y, t->position.z));
@@ -111,7 +129,7 @@ void Renderer::Render(RenderProperties *info, transform* t){
     model = glm::rotate(model, glm::radians(t->rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::scale(model, glm::vec3(t->scale.x, t->scale.y, t->scale.z));
 
-    m_shader->setMat4("model", model);
+    m_currentShader->setMat4("model", model);
 
     glBindVertexArray(info->VAO);
     glDrawArrays(GL_TRIANGLES, 0, RenderProperties::Vertices.size());
