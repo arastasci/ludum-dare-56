@@ -4,6 +4,7 @@
 #include "gameobject.h"
 #include <iostream>
 #include "../physics/screen_raycast_handler.h"
+#include "../../game/scripts/SledgehammerBehaviour.h"
 Scene::Scene()
 {
 	GameObjects = std::vector<GameObject *>(GAMEOBJECT_COUNT);

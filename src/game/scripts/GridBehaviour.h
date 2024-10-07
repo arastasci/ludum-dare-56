@@ -52,6 +52,42 @@ class GridBehaviour : public Behaviour {
             return go;
         }
 
+        template <typename T, typename = std::enable_if_t<std::is_base_of_v<GameObject, T>>>
+        T* CreateObjectAtTile(int x, int y, transform t)
+        {
+            std::cout << "Creating object at tile" << std::endl;
+            T* go = GameObject::Instantiate<T>(
+                {
+                    {(float)x, (float)y, t.position.z},
+                    {0.7f, 0.7f, 0.7f,},
+                    t.rotation
+                },
+                m_tiles[x][y]->gameObject->Transform
+                );
+
+            auto gridObjectBehaviour = static_cast<GameObject*>(go)->GetComponent<GridObjectBehaviour>();
+
+            m_tiles[x][y]->AddGridObject(gridObjectBehaviour);
+            if (gridObjectBehaviour->Type == GridObjectType::Agent)
+            {
+                auto agent = gridObjectBehaviour->gameObject->GetComponent<AgentBehaviour>();
+                if (agent == nullptr)
+                {
+                    std::cout << "Agents should have an agent behaviour!" << std::endl;
+                }
+                else
+                {
+                    agent->gridBehaviour = this;
+                    m_agents.push_back(agent);
+                }
+            }
+            if (gridObjectBehaviour->Type == GridObjectType::Obstacle)
+            {
+                OnGridChanged();
+            }
+            return go;
+        }
+
     private:
         std::vector<AgentBehaviour*> m_agents;
         TileBehaviour* m_tiles[11][11];

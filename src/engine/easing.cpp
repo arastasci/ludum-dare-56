@@ -39,3 +39,8 @@ double easeInOutBack(double x) {
     }
 }
 
+double easeInExpo(double x)
+{
+    return x == 0.0 ? 0.0 : pow(2, 10 * x - 10);
+}
+

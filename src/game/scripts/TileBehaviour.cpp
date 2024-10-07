@@ -5,6 +5,7 @@
 #include "../../engine/input/input.h"
 #include "../prefab/Tile.h"
 #include "../prefab/Anvil.h"
+#include "../prefab/Sledgehammer.h"
 #include <tuple>
 #include "GridBehaviour.h"
 
@@ -29,12 +30,22 @@ void TileBehaviour::Update() {
     
     if(m_hovering){
         if(MouseInput::getInstance().IsButtonPressed(0)){
+            transform hammer(*this->gameObject->Transform);
+            hammer.position.z = 1.2;
+            hammer.rotation = { 0, 0, 45.f };
+            hammer.scale = { 0.7, 0.7, 0.7 };
+
+            gridBehaviour->CreateObjectAtTile<Sledgehammer>(x, y, hammer);
+        }
+        else if (KeyInput::getInstance().IsKeyPressed(GLFW_KEY_R))
+        {
             transform anvil(*this->gameObject->Transform);
             anvil.position.z = 1.2;
-            anvil.scale = {0.7, 0.7, 0.7};
+            anvil.scale = { 0.7, 0.7, 0.7 };
 
-            gridBehaviour->CreateObjectAtTile<Anvil>(x, y);
-        } else {
+            gridBehaviour->CreateObjectAtTile<Anvil>(x, y, anvil);
+        }
+        else {
             rp->SetTextureCoords({0, 11});
         }
     }

@@ -4,6 +4,7 @@
 #include "../../engine/easing.h"
 #include "../../engine/timer.h"
 #include <iostream>
+#include "Enemy.h"
 
 double AnvilBehaviour::animationDuration = .2f;
 
@@ -17,8 +18,11 @@ void AnvilBehaviour::Start() {
     auto agents = tileBehaviour->GetObjectsByType(GridObjectType::Agent);
 
     for(auto agent : agents) {
-        tileBehaviour->RemoveGridObject(agent);
-        agent->gameObject->Destroy();
+        if (agent->gameObject->GetComponent<Enemy>() != nullptr)
+        {
+            tileBehaviour->RemoveGridObject(agent);
+            agent->gameObject->Destroy();
+        }
     }
 }
 
