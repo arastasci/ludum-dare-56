@@ -41,7 +41,7 @@ void TileBehaviour::Update() {
 
             gridBehaviour->CreateObjectAtTile<Sledgehammer>(x, y, hammer);
         }
-        else if (KeyInput::getInstance().IsKeyPressed(GLFW_KEY_F))
+        else if (KeyInput::getInstance().IsKeyPressed(GLFW_KEY_F) && GameManagerBehaviour::GetInstance()->CanUseBomb())
         {
             transform bomb(*this->gameObject->Transform);
             bomb.position.z = 1.2;
@@ -50,7 +50,7 @@ void TileBehaviour::Update() {
 
             gridBehaviour->CreateObjectAtTile<Bomb>(x, y, bomb);
         }
-        else if (KeyInput::getInstance().IsKeyPressed(GLFW_KEY_SPACE))
+        else if (KeyInput::getInstance().IsKeyPressed(GLFW_KEY_SPACE) && GameManagerBehaviour::GetInstance()->CanUseAnvil())
         {
             if (gridBehaviour->GetTileAt(x, y)->GetObjectsByType(GridObjectType::Target).size() == 0)
             {
